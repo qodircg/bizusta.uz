@@ -1,929 +1,484 @@
 <!DOCTYPE html>
-<html lang="uz">
+<html lang="en" class="no-js">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>BIZUSTA — Individual Yechim</title>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
-    <style>
-        :root {
-            --bg: #ffffff;
-            --txt: #111111;
-            --card: #f8f8f8;
-            --accent: #2F496E;
-            --accent2: #94AFC9;
-            --border: #e5e5e5;
-            --gray: #666666;
-            --light-gray: #999999;
-            --shadow: 0 4px 30px rgba(0,0,0,0.06);
-        }
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Nikola Radeski — Portfolio</title>
+  <meta
+    name="description"
+    content="Award-winning dark portfolio with cinematic motion, smooth scrolling, neon accents and editorial layout."
+  />
 
-        .dark {
-            --bg: #0d0d0d;
-            --txt: #f0f0f0;
-            --card: #181818;
-            --accent: #94AFC9;
-            --accent2: #5e7fa0;
-            --border: #2a2a2a;
-            --gray: #999999;
-            --light-gray: #777777;
-            --shadow: 0 4px 30px rgba(0,0,0,0.3);
-        }
+  <script>
+    document.documentElement.classList.remove('no-js');
+    document.documentElement.classList.add('js');
+  </script>
 
-        * { margin: 0; padding: 0; box-sizing: border-box; }
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700;800&display=swap"
+    rel="stylesheet"
+  />
 
-        html { scroll-behavior: smooth; }
-
-        body {
-            background: var(--bg);
-            color: var(--txt);
-            font-family: 'Inter', sans-serif;
-            transition: background 0.4s, color 0.4s;
-            line-height: 1.6;
-            overflow-x: hidden;
-        }
-
-        /* ── THEME TOGGLE ── */
-        .theme-toggle {
-            position: fixed;
-            top: 24px;
-            right: 24px;
-            z-index: 999;
-            width: 48px;
-            height: 48px;
-            border-radius: 50%;
-            border: 2px solid var(--border);
-            background: var(--card);
-            cursor: pointer;
-            font-size: 22px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            transition: all 0.3s;
-            box-shadow: var(--shadow);
-            color: var(--txt);
-        }
-        .theme-toggle:hover {
-            transform: scale(1.08);
-            border-color: var(--accent);
-        }
-
-        /* ── HEADER ── */
-        header {
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            z-index: 100;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            padding: 20px 48px;
-            transition: all 0.3s;
-        }
-        header.scrolled {
-            background: var(--bg);
-            border-bottom: 1px solid var(--border);
-            backdrop-filter: blur(20px);
-            padding: 16px 48px;
-        }
-        .logo {
-            font-size: 24px;
-            font-weight: 800;
-            letter-spacing: -0.02em;
-            color: var(--txt);
-            text-decoration: none;
-        }
-        .logo span { color: var(--accent2); }
-        nav { display: flex; align-items: center; gap: 32px; }
-        nav a {
-            font-size: 13px;
-            font-weight: 500;
-            color: var(--gray);
-            text-decoration: none;
-            transition: color 0.3s;
-            letter-spacing: -0.01em;
-        }
-        nav a:hover { color: var(--accent); }
-        .nav-cta {
-            background: var(--accent);
-            color: #fff !important;
-            padding: 10px 22px;
-            border-radius: 100px;
-            font-weight: 600;
-            font-size: 13px;
-            transition: all 0.3s;
-        }
-        .nav-cta:hover {
-            background: var(--accent2) !important;
-            color: #fff !important;
-            transform: translateY(-1px);
-        }
-
-        /* ── HERO ── */
-        #hero {
-            min-height: 100vh;
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            align-items: center;
-            padding: 0 48px;
-            gap: 60px;
-        }
-        .hero-left {
-            display: flex;
-            flex-direction: column;
-            gap: 24px;
-        }
-        .hero-badge {
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-            background: var(--card);
-            border: 1px solid var(--border);
-            padding: 8px 18px;
-            border-radius: 100px;
-            font-size: 12px;
-            font-weight: 500;
-            color: var(--gray);
-            width: fit-content;
-            letter-spacing: -0.01em;
-        }
-        .hero-badge::before {
-            content: '';
-            width: 7px;
-            height: 7px;
-            background: #4ade80;
-            border-radius: 50%;
-        }
-        .hero-subtitle {
-            font-size: 14px;
-            font-weight: 500;
-            color: var(--light-gray);
-            letter-spacing: 0.05em;
-            text-transform: uppercase;
-        }
-        .hero-title {
-            font-size: clamp(48px, 7vw, 88px);
-            font-weight: 800;
-            line-height: 0.95;
-            letter-spacing: -0.03em;
-            color: var(--txt);
-        }
-        .hero-title em {
-            font-style: normal;
-            color: var(--accent2);
-        }
-        .hero-desc {
-            font-size: 16px;
-            color: var(--gray);
-            max-width: 460px;
-            line-height: 1.7;
-            font-weight: 400;
-        }
-        .hero-btns {
-            display: flex;
-            gap: 12px;
-            flex-wrap: wrap;
-        }
-        .btn-primary {
-            padding: 14px 32px;
-            background: var(--accent);
-            color: #fff;
-            font-size: 14px;
-            font-weight: 600;
-            text-decoration: none;
-            border-radius: 100px;
-            border: none;
-            cursor: pointer;
-            transition: all 0.3s;
-            letter-spacing: -0.01em;
-        }
-        .btn-primary:hover {
-            background: var(--accent2);
-            transform: translateY(-2px);
-            box-shadow: 0 8px 30px rgba(47,73,110,0.3);
-        }
-        .btn-outline {
-            padding: 14px 32px;
-            border: 2px solid var(--border);
-            color: var(--txt);
-            font-size: 14px;
-            font-weight: 600;
-            text-decoration: none;
-            border-radius: 100px;
-            background: transparent;
-            cursor: pointer;
-            transition: all 0.3s;
-            letter-spacing: -0.01em;
-        }
-        .btn-outline:hover {
-            border-color: var(--accent);
-            color: var(--accent);
-        }
-
-        .hero-right {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-        .hero-img-wrapper {
-            width: 100%;
-            max-width: 520px;
-            aspect-ratio: 4/5;
-            border-radius: 24px;
-            overflow: hidden;
-            box-shadow: 0 20px 60px rgba(0,0,0,0.15);
-        }
-        .hero-img {
-            width: 100%;
-            height: 100%;
-            object-fit: contain;
-            object-position: top center;
-        }
-
-        /* ── SECTIONS ── */
-        .section {
-            padding: 100px 48px;
-            max-width: 1200px;
-            margin: 0 auto;
-        }
-        .section-label {
-            font-size: 12px;
-            font-weight: 600;
-            letter-spacing: 0.08em;
-            text-transform: uppercase;
-            color: var(--accent2);
-            margin-bottom: 12px;
-        }
-        .section-title {
-            font-size: clamp(36px, 5vw, 56px);
-            font-weight: 800;
-            letter-spacing: -0.03em;
-            color: var(--txt);
-            margin-bottom: 16px;
-            line-height: 1.1;
-        }
-        .section-title em {
-            font-style: normal;
-            color: var(--accent2);
-        }
-        .section-desc {
-            font-size: 16px;
-            color: var(--gray);
-            max-width: 500px;
-            line-height: 1.7;
-            margin-bottom: 48px;
-        }
-
-        /* ── SKILLS ── */
-        .skills-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 20px;
-        }
-        .skill-card {
-            background: var(--card);
-            border: 1px solid var(--border);
-            border-radius: 20px;
-            padding: 32px;
-            transition: all 0.3s;
-            cursor: default;
-        }
-        .skill-card:hover {
-            transform: translateY(-4px);
-            box-shadow: var(--shadow);
-            border-color: var(--accent2);
-        }
-        .skill-num {
-            font-size: 12px;
-            font-weight: 700;
-            color: var(--accent2);
-            margin-bottom: 12px;
-            letter-spacing: 0.05em;
-        }
-        .skill-name {
-            font-size: 22px;
-            font-weight: 700;
-            color: var(--txt);
-            margin-bottom: 8px;
-            letter-spacing: -0.02em;
-        }
-        .skill-desc {
-            font-size: 14px;
-            color: var(--gray);
-            line-height: 1.6;
-            margin-bottom: 16px;
-        }
-        .skill-tags {
-            display: flex;
-            gap: 6px;
-            flex-wrap: wrap;
-        }
-        .skill-tag {
-            font-size: 11px;
-            font-weight: 500;
-            padding: 4px 12px;
-            border: 1px solid var(--border);
-            border-radius: 100px;
-            color: var(--gray);
-            transition: all 0.3s;
-        }
-        .skill-card:hover .skill-tag {
-            border-color: var(--accent2);
-            color: var(--accent2);
-        }
-
-        /* ── ROOMS ── */
-        .rooms-scroll {
-            display: flex;
-            gap: 16px;
-            overflow-x: auto;
-            scrollbar-width: none;
-            padding-bottom: 8px;
-            cursor: grab;
-        }
-        .rooms-scroll::-webkit-scrollbar { display: none; }
-        .room-card {
-            flex: 0 0 240px;
-            background: var(--card);
-            border: 1px solid var(--border);
-            border-radius: 20px;
-            padding: 24px;
-            transition: all 0.3s;
-            cursor: pointer;
-        }
-        .room-card:hover {
-            transform: translateY(-4px);
-            box-shadow: var(--shadow);
-            border-color: var(--accent2);
-        }
-        .room-icon {
-            font-size: 36px;
-            margin-bottom: 12px;
-        }
-        .room-num {
-            font-size: 11px;
-            font-weight: 700;
-            color: var(--accent2);
-            letter-spacing: 0.05em;
-            margin-bottom: 4px;
-        }
-        .room-name {
-            font-size: 20px;
-            font-weight: 700;
-            color: var(--txt);
-            letter-spacing: -0.02em;
-        }
-        .room-tags {
-            display: flex;
-            gap: 4px;
-            flex-wrap: wrap;
-            margin-top: 12px;
-        }
-        .room-tag {
-            font-size: 10px;
-            font-weight: 500;
-            padding: 3px 10px;
-            border: 1px solid var(--border);
-            border-radius: 100px;
-            color: var(--gray);
-        }
-
-        /* ── ABOUT ── */
-        #about {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 60px;
-            align-items: center;
-        }
-        .about-text {
-            display: flex;
-            flex-direction: column;
-            gap: 16px;
-        }
-        .about-quote {
-            font-size: 22px;
-            font-weight: 600;
-            color: var(--txt);
-            line-height: 1.5;
-            padding-left: 20px;
-            border-left: 3px solid var(--accent2);
-            letter-spacing: -0.01em;
-        }
-        .about-desc {
-            font-size: 15px;
-            color: var(--gray);
-            line-height: 1.7;
-        }
-        .stats {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 16px;
-            margin-top: 16px;
-        }
-        .stat-card {
-            background: var(--card);
-            border: 1px solid var(--border);
-            border-radius: 16px;
-            padding: 20px;
-            text-align: center;
-        }
-        .stat-num {
-            font-size: 36px;
-            font-weight: 800;
-            color: var(--accent);
-            letter-spacing: -0.02em;
-        }
-        .stat-label {
-            font-size: 11px;
-            font-weight: 500;
-            color: var(--gray);
-            margin-top: 4px;
-            letter-spacing: 0.03em;
-        }
-        .master-card {
-            background: var(--card);
-            border: 1px solid var(--border);
-            border-radius: 20px;
-            padding: 32px;
-        }
-        .master-label {
-            font-size: 11px;
-            font-weight: 600;
-            letter-spacing: 0.08em;
-            text-transform: uppercase;
-            color: var(--accent2);
-            margin-bottom: 8px;
-        }
-        .master-name {
-            font-size: 40px;
-            font-weight: 800;
-            color: var(--txt);
-            letter-spacing: -0.03em;
-            line-height: 1;
-            margin-bottom: 8px;
-        }
-        .master-role {
-            font-size: 13px;
-            font-weight: 500;
-            color: var(--gray);
-            margin-bottom: 16px;
-        }
-        .master-desc {
-            font-size: 14px;
-            color: var(--gray);
-            line-height: 1.7;
-            margin-bottom: 20px;
-        }
-        .exp-badge {
-            display: inline-flex;
-            align-items: center;
-            gap: 12px;
-            background: var(--bg);
-            border: 1px solid var(--border);
-            border-radius: 16px;
-            padding: 16px 20px;
-        }
-        .exp-num {
-            font-size: 36px;
-            font-weight: 800;
-            color: var(--accent);
-            letter-spacing: -0.02em;
-        }
-        .exp-text {
-            font-size: 12px;
-            color: var(--gray);
-            font-weight: 500;
-        }
-
-        /* ── CONTACT ── */
-        #contact {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 60px;
-            align-items: center;
-        }
-        .contact-title {
-            font-size: clamp(40px, 5vw, 64px);
-            font-weight: 800;
-            letter-spacing: -0.03em;
-            color: var(--txt);
-            line-height: 1;
-            margin-bottom: 16px;
-        }
-        .contact-title em {
-            font-style: normal;
-            color: var(--accent2);
-        }
-        .contact-links {
-            display: flex;
-            flex-direction: column;
-            gap: 12px;
-        }
-        .contact-link {
-            display: flex;
-            align-items: center;
-            gap: 16px;
-            background: var(--card);
-            border: 1px solid var(--border);
-            border-radius: 16px;
-            padding: 20px 24px;
-            text-decoration: none;
-            color: var(--txt);
-            transition: all 0.3s;
-        }
-        .contact-link:hover {
-            border-color: var(--accent2);
-            transform: translateX(4px);
-        }
-        .contact-icon {
-            font-size: 22px;
-        }
-        .contact-info {
-            flex: 1;
-        }
-        .contact-label {
-            font-size: 10px;
-            font-weight: 600;
-            letter-spacing: 0.06em;
-            text-transform: uppercase;
-            color: var(--accent2);
-            margin-bottom: 2px;
-        }
-        .contact-value {
-            font-size: 15px;
-            font-weight: 500;
-            color: var(--txt);
-        }
-        .contact-arrow {
-            font-size: 16px;
-            color: var(--border);
-            transition: all 0.3s;
-        }
-        .contact-link:hover .contact-arrow {
-            color: var(--accent2);
-            transform: translateX(4px);
-        }
-
-        /* ── FOOTER ── */
-        footer {
-            text-align: center;
-            padding: 32px 48px;
-            border-top: 1px solid var(--border);
-            color: var(--gray);
-            font-size: 13px;
-        }
-        footer strong { color: var(--txt); }
-        footer span { color: var(--accent2); }
-
-        /* ── MOBILE ── */
-        @media (max-width: 768px) {
-            #hero {
-                grid-template-columns: 1fr;
-                padding: 100px 24px 40px;
-                gap: 32px;
-                min-height: auto;
-            }
-            .hero-right {
-                order: -1;
-            }
-            .hero-img {
-    width: 400px;
-    height: 500px;
-    object-fit: cover;
-}
-}
-            header {
-                padding: 16px 24px;
-            }
-            header.scrolled {
-                padding: 12px 24px;
-            }
-            nav a:not(.nav-cta) {
-                display: none;
-            }
-            .section {
-                padding: 60px 24px;
-            }
-            #about, #contact {
-                grid-template-columns: 1fr;
-                gap: 32px;
-            }
-            .theme-toggle {
-                top: 16px;
-                right: 16px;
-                width: 40px;
-                height: 40px;
-                font-size: 18px;
-            }
-        
-    </style>
+  <link rel="stylesheet" href="style.css" />
 </head>
 <body>
+  <div class="cursor" aria-hidden="true"></div>
 
-    <!-- THEME TOGGLE -->
-    <button class="theme-toggle" id="themeToggle" title="Kecha/Kunduz rejimi">🌙</button>
+  <a class="skip-link" href="#content">Skip to content</a>
 
-    <!-- HEADER -->
-    <header id="header">
-        <a href="#" class="logo">BIZ<span>USTA</span></a>
-        <nav>
-            <a href="#skills">Uslublar</a>
-            <a href="#rooms">Xonalar</a>
-            <a href="#about">Haqimizda</a>
-            <a href="#contact" class="nav-cta">Bog'lanish</a>
-        </nav>
-    </header>
+  <header class="site-header">
+    <div class="container header-row">
+      <a class="brand" href="#hero">NR</a>
+      <nav class="header-nav" aria-label="Primary">
+        <a href="#services">Services</a>
+        <a href="#projects">Projects</a>
+        <a href="#experience">Experience</a>
+        <a href="#testimonials">Testimonials</a>
+      </nav>
+    </div>
+  </header>
 
-    <!-- HERO -->
-    <section id="hero">
-        <div class="hero-left">
-            <div class="hero-badge">Urgut · Samarqand</div>
-            <p class="hero-subtitle">Muhammadqodir Umarov</p>
-            <h1 class="hero-title">Interior<br><em>Dizayner</em></h1>
-            <p class="hero-desc">
-                Individual yechim — har bir uy o'ziga xos. 25+ yillik tajriba bilan uyingizni orzuingizdagidek quramiz.
+  <main id="content">
+    <section class="hero section" id="hero">
+      <div class="hero-ambient hero-ambient-one parallax-element"></div>
+      <div class="hero-ambient hero-ambient-two parallax-element"></div>
+
+      <div class="container hero-grid">
+        <div class="hero-meta">
+          <p class="section-kicker" data-reveal="text">
+            <span class="reveal-line"><span>01 / INTRO</span></span>
+          </p>
+
+          <div class="hero-meta-block">
+            <p class="eyebrow glow">Skopje, Macedonia — 01:56 GMT+2</p>
+            <p class="hero-subcopy">
+              Designer &amp; Founder, based in Skopje, Macedonia
             </p>
-            <div class="hero-btns">
-                <a href="#rooms" class="btn-primary">Ishlarni ko'rish</a>
-                <a href="#contact" class="btn-outline">Bog'lanish</a>
-            </div>
+          </div>
         </div>
-        <div class="hero-right">
-            <div class="hero-img-wrapper">
-                <img src="images/IMG_20250918_165208.jpg" alt="Saidov Umid — Bosh Usta" class="hero-img">
-            </div>
+
+        <div class="hero-copy">
+          <span class="badge magnetic-target">Award Winning Creative Leader</span>
+
+          <h1 class="hero-title" data-reveal="text" aria-label="Nikola Radeski">
+            <span class="reveal-line"><span># Nikola</span></span>
+            <span class="reveal-line"><span># Radeski</span></span>
+          </h1>
+
+          <p class="hero-description">
+            A cinematic one-page portfolio crafted around precision, modern minimalism,
+            dark editorial rhythm, and luminous interaction design.
+          </p>
+
+          <div class="hero-actions">
+            <a class="btn btn-primary magnetic-target" href="#projects">View selected work</a>
+            <a class="btn btn-secondary magnetic-target" href="#footer">Let’s collaborate</a>
+          </div>
         </div>
+      </div>
     </section>
 
-    <!-- SKILLS -->
-    <section class="section" id="skills">
-        <p class="section-label">/ Dizayn yo'nalishlari</p>
-        <h2 class="section-title">Qaysi uslub <em>sizga mos?</em></h2>
-        <p class="section-desc">4 ta asosiy yo'nalishdan birini tanlang. Har biri uchun barcha xonalarda yechim mavjud.</p>
-        <div class="skills-grid">
-            <div class="skill-card">
-                <p class="skill-num">01</p>
-                <h3 class="skill-name">High-Tech</h3>
-                <p class="skill-desc">Silliq yuzalar, texnologik yechimlar, minimal bezak. Yuqori sifat va funktsionallik.</p>
-                <div class="skill-tags">
-                    <span class="skill-tag">Zal</span>
-                    <span class="skill-tag">Oshxona</span>
-                    <span class="skill-tag">Hammom</span>
-                </div>
-            </div>
-            <div class="skill-card">
-                <p class="skill-num">02</p>
-                <h3 class="skill-name">New Classic</h3>
-                <p class="skill-desc">Hashamat va nafosatni zamonaviy qulaylik bilan birlashtiradi. Vaqt sinovidan o'tgan go'zallik.</p>
-                <div class="skill-tags">
-                    <span class="skill-tag">Zal</span>
-                    <span class="skill-tag">Yotoq xona</span>
-                    <span class="skill-tag">Mehmon xona</span>
-                </div>
-            </div>
-            <div class="skill-card">
-                <p class="skill-num">03</p>
-                <h3 class="skill-name">Skandinaviya</h3>
-                <p class="skill-desc">Yorug'lik, tabiiy ranglar, funktsional va tinch muhit. Soddalikda go'zallik.</p>
-                <div class="skill-tags">
-                    <span class="skill-tag">Bolalar</span>
-                    <span class="skill-tag">Yotoq xona</span>
-                    <span class="skill-tag">Zal</span>
-                </div>
-            </div>
-            <div class="skill-card">
-                <p class="skill-num">04</p>
-                <h3 class="skill-name">Molding</h3>
-                <p class="skill-desc">Gips bezaklari, klassik nafosatning eng yuqori darajasi. Har bir devor — san'at asari.</p>
-                <div class="skill-tags">
-                    <span class="skill-tag">Zal</span>
-                    <span class="skill-tag">Koridor</span>
-                    <span class="skill-tag">Mehmon xona</span>
-                </div>
-            </div>
+    <section class="awards section" aria-label="Awards marquee">
+      <div class="container">
+        <div class="section-head">
+          <p class="section-kicker" data-reveal="text">
+            <span class="reveal-line"><span>02 / CREDIBILITY</span></span>
+          </p>
         </div>
+      </div>
+
+      <div class="marquee">
+        <div class="marquee-track">
+          <span class="award-pill">Awwwards Honorable Mention</span>
+          <span class="award-pill">FWA Site of the Day</span>
+          <span class="award-pill">CSSDA Special Kudos</span>
+          <span class="award-pill">Top Graphic Design Voice</span>
+          <span class="award-pill">Behance Featured</span>
+          <span class="award-pill">Webflow Expert</span>
+          <span class="award-pill">Creative Direction Award</span>
+
+          <span class="award-pill">Awwwards Honorable Mention</span>
+          <span class="award-pill">FWA Site of the Day</span>
+          <span class="award-pill">CSSDA Special Kudos</span>
+          <span class="award-pill">Top Graphic Design Voice</span>
+          <span class="award-pill">Behance Featured</span>
+          <span class="award-pill">Webflow Expert</span>
+          <span class="award-pill">Creative Direction Award</span>
+        </div>
+      </div>
     </section>
 
-    <!-- ROOMS -->
-    <section class="section" id="rooms">
-        <p class="section-label">/ Xonangizni tanlang</p>
-        <h2 class="section-title">Qaysi <em>xona</em>?</h2>
-        <p class="section-desc">Chapga-o'ngga suring. Har bir xona uchun barcha uslublarda individual yechim taklif qilamiz.</p>
-        <div class="rooms-scroll">
-            <div class="room-card">
-                <div class="room-icon">🛋️</div>
-                <p class="room-num">01</p>
-                <h3 class="room-name">Zal</h3>
-                <div class="room-tags">
-                    <span class="room-tag">High-Tech</span>
-                    <span class="room-tag">Classic</span>
-                    <span class="room-tag">Molding</span>
-                </div>
-            </div>
-            <div class="room-card">
-                <div class="room-icon">🛏️</div>
-                <p class="room-num">02</p>
-                <h3 class="room-name">Yotoq xona</h3>
-                <div class="room-tags">
-                    <span class="room-tag">Classic</span>
-                    <span class="room-tag">Scandi</span>
-                </div>
-            </div>
-            <div class="room-card">
-                <div class="room-icon">🧸</div>
-                <p class="room-num">03</p>
-                <h3 class="room-name">Bolalar</h3>
-                <div class="room-tags">
-                    <span class="room-tag">Scandi</span>
-                    <span class="room-tag">Modern</span>
-                </div>
-            </div>
-            <div class="room-card">
-                <div class="room-icon">🪑</div>
-                <p class="room-num">04</p>
-                <h3 class="room-name">Mehmon xona</h3>
-                <div class="room-tags">
-                    <span class="room-tag">Molding</span>
-                    <span class="room-tag">Classic</span>
-                </div>
-            </div>
-            <div class="room-card">
-                <div class="room-icon">🚪</div>
-                <p class="room-num">05</p>
-                <h3 class="room-name">Koridor</h3>
-                <div class="room-tags">
-                    <span class="room-tag">High-Tech</span>
-                    <span class="room-tag">Molding</span>
-                </div>
-            </div>
-            <div class="room-card">
-                <div class="room-icon">🍳</div>
-                <p class="room-num">06</p>
-                <h3 class="room-name">Oshxona</h3>
-                <div class="room-tags">
-                    <span class="room-tag">High-Tech</span>
-                    <span class="room-tag">Classic</span>
-                </div>
-            </div>
-            <div class="room-card">
-                <div class="room-icon">🚿</div>
-                <p class="room-num">07</p>
-                <h3 class="room-name">Hammom</h3>
-                <div class="room-tags">
-                    <span class="room-tag">Modern</span>
-                    <span class="room-tag">Scandi</span>
-                </div>
-            </div>
+    <section class="services section" id="services">
+      <div class="container services-layout">
+        <div class="services-copy">
+          <p class="section-kicker" data-reveal="text">
+            <span class="reveal-line"><span>03 / SERVICES</span></span>
+          </p>
+
+          <h2 class="section-title" data-reveal="text">
+            <span class="reveal-line"><span>Creative systems,</span></span>
+            <span class="reveal-line"><span>built to perform.</span></span>
+          </h2>
+
+          <p class="section-description">
+            A refined list of disciplines spanning brand, product, web, motion, and
+            marketing—designed to feel sharp, intentional, and high-conviction.
+          </p>
+
+          <div class="service-list">
+            <article class="service-item stagger-up magnetic-target">
+              <span class="service-index">/ 01</span>
+              <div class="service-content">
+                <h3>Brand Strategy</h3>
+                <p>Positioning, voice, perception, and a sharper point of view.</p>
+              </div>
+            </article>
+
+            <article class="service-item stagger-up magnetic-target">
+              <span class="service-index">/ 02</span>
+              <div class="service-content">
+                <h3>Creative Direction</h3>
+                <p>Concept systems, campaign language, and a stronger visual narrative.</p>
+              </div>
+            </article>
+
+            <article class="service-item stagger-up magnetic-target">
+              <span class="service-index">/ 03</span>
+              <div class="service-content">
+                <h3>Web Design &amp; Development</h3>
+                <p>Editorial layouts, premium interfaces, and motion-first storytelling.</p>
+              </div>
+            </article>
+
+            <article class="service-item stagger-up magnetic-target">
+              <span class="service-index">/ 04</span>
+              <div class="service-content">
+                <h3>Video Production</h3>
+                <p>Cinematic sequences, launch edits, reels, and social-first impact.</p>
+              </div>
+            </article>
+
+            <article class="service-item stagger-up magnetic-target">
+              <span class="service-index">/ 05</span>
+              <div class="service-content">
+                <h3>Marketing Solutions</h3>
+                <p>Creative growth assets designed to convert attention into momentum.</p>
+              </div>
+            </article>
+          </div>
         </div>
+
+        <aside class="service-stack">
+          <div class="stack-card stack-card-1">
+            <span class="stack-label">Strategy</span>
+            <h3>Clear positioning before visual execution.</h3>
+            <p>
+              The strongest digital work begins with message clarity, brand edge,
+              and a measurable point of view.
+            </p>
+          </div>
+
+          <div class="stack-card stack-card-2">
+            <span class="stack-label">Design</span>
+            <h3>High-end interfaces with cinematic restraint.</h3>
+            <p>
+              Typography, rhythm, contrast, and motion are treated as one continuous
+              visual language.
+            </p>
+          </div>
+
+          <div class="stack-card stack-card-3">
+            <span class="stack-label">Growth</span>
+            <h3>Beautiful work that still performs under pressure.</h3>
+            <p>
+              Brand presence, conversion paths, and content systems engineered to scale.
+            </p>
+          </div>
+        </aside>
+      </div>
     </section>
 
-    <!-- ABOUT -->
-    <section class="section" id="about">
-        <div class="about-text">
-            <p class="section-label">/ Biz haqimizda</p>
-            <blockquote class="about-quote">
-                "Otamning 25 yillik tajribasini zamonaviy dizayn bilan birlashtirdim"
-            </blockquote>
-            <p class="about-desc">
-                Men — Muhammadqodir Umarov. Interior dizayn sohasida otamning merosini davom ettirib, zamonaviy yondashuvlar bilan boyitaman.
+    <section class="projects section" id="projects">
+      <div class="container">
+        <div class="section-head projects-head">
+          <div>
+            <p class="section-kicker" data-reveal="text">
+              <span class="reveal-line"><span>04 / SELECTED WORK</span></span>
             </p>
-            <p class="about-desc">
-                Urgutdan chiqib, butun Samarqand viloyatida ishlashga tayyor. Sifat va vaqt — biz uchun muqaddas.
-            </p>
-            <div class="stats">
-                <div class="stat-card">
-                    <div class="stat-num">25+</div>
-                    <div class="stat-label">Yil tajriba</div>
-                </div>
-                <div class="stat-card">
-                    <div class="stat-num">4</div>
-                    <div class="stat-label">Uslub</div>
-                </div>
-                <div class="stat-card">
-                    <div class="stat-num">100%</div>
-                    <div class="stat-label">Kafolat</div>
-                </div>
-            </div>
-        </div>
-        <div class="master-card">
-            <p class="master-label">/ Bosh Usta · Asos</p>
-            <div class="master-name">Saidov<br>Umid</div>
-            <p class="master-role">Interior bezak ustasi</p>
-            <p class="master-desc">
-                25 yildan ortiq davomida yuzlab uylarni go'zallashtirib kelgan. Molding va gips ishlarida Samarqand viloyatining eng tajribali ustalaridan biri.
-            </p>
-            <div class="exp-badge">
-                <div class="exp-num">25+</div>
-                <div class="exp-text">Yillik tajriba<br>Interior bezak · Molding</div>
-            </div>
-        </div>
-    </section>
+            <h2 class="section-title" data-reveal="text">
+              <span class="reveal-line"><span>Portfolio designed</span></span>
+              <span class="reveal-line"><span>to be felt first.</span></span>
+            </h2>
+          </div>
 
-    <!-- CONTACT -->
-    <section class="section" id="contact">
-        <div>
-            <p class="section-label">/ Bog'lanish</p>
-            <h2 class="contact-title">Loyihani<br><em>boshlaylik</em></h2>
-            <p class="section-desc">Bepul maslahat uchun bugun bog'laning. Xonangiz o'lchamini ayting — individual yechim taklif qilamiz.</p>
+          <p class="section-description narrow">
+            Six placeholder case studies in a premium two-column grid, each with a
+            reveal wipe, lift-on-hover image motion, and luminous title overlay.
+          </p>
         </div>
-        <div class="contact-links">
-            <a href="https://t.me/bizusta" class="contact-link">
-                <span class="contact-icon">✈️</span>
-                <div class="contact-info">
-                    <div class="contact-label">Telegram</div>
-                    <div class="contact-value">@bizusta</div>
-                </div>
-                <span class="contact-arrow">→</span>
+
+        <div class="projects-grid">
+          <article class="project-card magnetic-target stagger-up">
+            <a href="#" aria-label="Project Alpha">
+              <figure class="project-media reveal-image">
+                <img src="https://picsum.photos/800/600?random=1" alt="Project Alpha preview" />
+              </figure>
+              <div class="project-overlay">
+                <span class="project-category">Brand / Digital</span>
+                <h3>Project Alpha</h3>
+              </div>
             </a>
-            <a href="https://instagram.com/bizusta" class="contact-link">
-                <span class="contact-icon">📸</span>
-                <div class="contact-info">
-                    <div class="contact-label">Instagram</div>
-                    <div class="contact-value">@bizusta</div>
-                </div>
-                <span class="contact-arrow">→</span>
+          </article>
+
+          <article class="project-card magnetic-target stagger-up tall">
+            <a href="#" aria-label="Brandscape">
+              <figure class="project-media reveal-image">
+                <img src="https://picsum.photos/800/960?random=2" alt="Brandscape preview" />
+              </figure>
+              <div class="project-overlay">
+                <span class="project-category">Identity / Web</span>
+                <h3>Brandscape</h3>
+              </div>
             </a>
-            <a href="tel:+998978979111" class="contact-link">
-                <span class="contact-icon">📱</span>
-                <div class="contact-info">
-                    <div class="contact-label">Telefon</div>
-                    <div class="contact-value">+998 97 897 91 11</div>
-                </div>
-                <span class="contact-arrow">→</span>
+          </article>
+
+          <article class="project-card magnetic-target stagger-up wide">
+            <a href="#" aria-label="The Digital Wave">
+              <figure class="project-media reveal-image">
+                <img src="https://picsum.photos/1200/800?random=3" alt="The Digital Wave preview" />
+              </figure>
+              <div class="project-overlay">
+                <span class="project-category">Campaign / Motion</span>
+                <h3>The Digital Wave</h3>
+              </div>
             </a>
+          </article>
+
+          <article class="project-card magnetic-target stagger-up">
+            <a href="#" aria-label="Noir Commerce">
+              <figure class="project-media reveal-image">
+                <img src="https://picsum.photos/800/600?random=4" alt="Noir Commerce preview" />
+              </figure>
+              <div class="project-overlay">
+                <span class="project-category">E-Commerce / UX</span>
+                <h3>Noir Commerce</h3>
+              </div>
+            </a>
+          </article>
+
+          <article class="project-card magnetic-target stagger-up">
+            <a href="#" aria-label="Frame Theory">
+              <figure class="project-media reveal-image">
+                <img src="https://picsum.photos/800/700?random=5" alt="Frame Theory preview" />
+              </figure>
+              <div class="project-overlay">
+                <span class="project-category">Direction / Film</span>
+                <h3>Frame Theory</h3>
+              </div>
+            </a>
+          </article>
+
+          <article class="project-card magnetic-target stagger-up tall">
+            <a href="#" aria-label="Liminal Studio">
+              <figure class="project-media reveal-image">
+                <img src="https://picsum.photos/800/1000?random=6" alt="Liminal Studio preview" />
+              </figure>
+              <div class="project-overlay">
+                <span class="project-category">Studio / Editorial</span>
+                <h3>Liminal Studio</h3>
+              </div>
+            </a>
+          </article>
         </div>
+      </div>
     </section>
 
-    <!-- FOOTER -->
-    <footer>
-        <strong>BIZ<span>USTA</span></strong> · Muhammadqodir Umarov & Saidov Umid · © 2025 — Individual Yechim
-    </footer>
+    <section class="experience section" id="experience">
+      <div class="container">
+        <div class="section-head">
+          <div>
+            <p class="section-kicker" data-reveal="text">
+              <span class="reveal-line"><span>05 / CAREER</span></span>
+            </p>
+            <h2 class="section-title" data-reveal="text">
+              <span class="reveal-line"><span>Work experience</span></span>
+              <span class="reveal-line"><span>with measured impact.</span></span>
+            </h2>
+          </div>
 
-    <script>
-        // ── THEME TOGGLE ──
-        const themeToggle = document.getElementById('themeToggle');
-        const body = document.body;
+          <p class="section-description narrow">
+            A vertical timeline with fade-and-rise motion, minimal dividers, and a
+            subtle connecting line to echo the editorial structure of the page.
+          </p>
+        </div>
 
-        // Kunduzi/kechasi avtomatik
-        const hour = new Date().getHours();
-        if (hour >= 18 || hour < 6) {
-            body.classList.add('dark');
-            themeToggle.textContent = '☀️';
-        } else {
-            themeToggle.textContent = '🌙';
-        }
+        <div class="timeline">
+          <article class="timeline-item stagger-up">
+            <span class="timeline-dot"></span>
+            <div class="timeline-date">2025 — Current</div>
+            <div class="timeline-body">
+              <h3>Creative Designer</h3>
+              <p>TryHackMe LLC</p>
+            </div>
+          </article>
 
-        themeToggle.addEventListener('click', () => {
-            body.classList.toggle('dark');
-            themeToggle.textContent = body.classList.contains('dark') ? '☀️' : '🌙';
-        });
+          <article class="timeline-item stagger-up">
+            <span class="timeline-dot"></span>
+            <div class="timeline-date">2023 — Current</div>
+            <div class="timeline-body">
+              <h3>Founder / Creative Director</h3>
+              <p>DirectlyNik™</p>
+            </div>
+          </article>
 
-        // ── HEADER SCROLL ──
-        const header = document.getElementById('header');
-        window.addEventListener('scroll', () => {
-            header.classList.toggle('scrolled', window.scrollY > 50);
-        });
+          <article class="timeline-item stagger-up">
+            <span class="timeline-dot"></span>
+            <div class="timeline-date">2024 — 2025</div>
+            <div class="timeline-body">
+              <h3>Head of Design</h3>
+              <p>Involve</p>
+            </div>
+          </article>
 
-        // ── SMOOTH SCROLL ──
-        document.querySelectorAll('a[href^="#"]').forEach(link => {
-            link.addEventListener('click', function(e) {
-                e.preventDefault();
-                const target = document.querySelector(this.getAttribute('href'));
-                if (target) {
-                    target.scrollIntoView({ behavior: 'smooth', block: 'start' });
-                }
-            });
-        });
+          <article class="timeline-item stagger-up">
+            <span class="timeline-dot"></span>
+            <div class="timeline-date">2021 — 2023</div>
+            <div class="timeline-body">
+              <h3>Chief Digital Marketing Executive</h3>
+              <p>Simplify-ERP®</p>
+            </div>
+          </article>
 
-        // ── DRAG SCROLL ──
-        const roomsScroll = document.querySelector('.rooms-scroll');
-        let isDown = false, startX, scrollLeftPos;
+          <article class="timeline-item stagger-up">
+            <span class="timeline-dot"></span>
+            <div class="timeline-date">2019 — 2021</div>
+            <div class="timeline-body">
+              <h3>Marketing Designer &amp; Video Editor</h3>
+              <p>Simplify-ERP®</p>
+            </div>
+          </article>
 
-        roomsScroll.addEventListener('mousedown', (e) => {
-            isDown = true;
-            roomsScroll.style.cursor = 'grabbing';
-            startX = e.pageX - roomsScroll.offsetLeft;
-            scrollLeftPos = roomsScroll.scrollLeft;
-        });
+          <article class="timeline-item stagger-up">
+            <span class="timeline-dot"></span>
+            <div class="timeline-date">2009 — 2018</div>
+            <div class="timeline-body">
+              <h3>Video Director / Producer</h3>
+              <p>YouTube</p>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
 
-        roomsScroll.addEventListener('mouseleave', () => {
-            isDown = false;
-            roomsScroll.style.cursor = 'grab';
-        });
+    <section class="testimonials section" id="testimonials">
+      <div class="container">
+        <div class="section-head">
+          <div>
+            <p class="section-kicker" data-reveal="text">
+              <span class="reveal-line"><span>06 / SOCIAL PROOF</span></span>
+            </p>
+            <h2 class="section-title" data-reveal="text">
+              <span class="reveal-line"><span>Testimonials that</span></span>
+              <span class="reveal-line"><span>sound like momentum.</span></span>
+            </h2>
+          </div>
 
-        roomsScroll.addEventListener('mouseup', () => {
-            isDown = false;
-            roomsScroll.style.cursor = 'grab';
-        });
+          <p class="section-description narrow">
+            Lighter dark cards, oversized quote marks, crisp typography, and enough
+            spacing to keep the section luxurious and breathable.
+          </p>
+        </div>
 
-        roomsScroll.addEventListener('mousemove', (e) => {
-            if (!isDown) return;
-            e.preventDefault();
-            const x = e.pageX - roomsScroll.offsetLeft;
-            const walk = (x - startX) * 1.5;
-            roomsScroll.scrollLeft = scrollLeftPos - walk;
-        });
-    </script>
+        <div class="testimonials-grid">
+          <article class="testimonial-card stagger-up magnetic-target">
+            <p class="testimonial-quote">
+              The work felt expensive before it even launched—and then it started converting.
+            </p>
+            <div class="testimonial-meta">
+              <h3>Lea Morgan</h3>
+              <p>Founder, Northline Studio</p>
+            </div>
+          </article>
+
+          <article class="testimonial-card stagger-up magnetic-target">
+            <p class="testimonial-quote">
+              Rare mix of taste, speed, and strategic clarity; every detail arrived with intent.
+            </p>
+            <div class="testimonial-meta">
+              <h3>Adrian Vale</h3>
+              <p>CMO, Circuit House</p>
+            </div>
+          </article>
+
+          <article class="testimonial-card stagger-up magnetic-target">
+            <p class="testimonial-quote">
+              He translated a loose vision into a visual system our entire team could build on.
+            </p>
+            <div class="testimonial-meta">
+              <h3>Mira Chen</h3>
+              <p>Product Lead, Obsidian Labs</p>
+            </div>
+          </article>
+
+          <article class="testimonial-card stagger-up magnetic-target">
+            <p class="testimonial-quote">
+              Minimal, cinematic, unmistakably premium—exactly the perception shift we needed.
+            </p>
+            <div class="testimonial-meta">
+              <h3>Jonas Reid</h3>
+              <p>Director, Form &amp; Frame</p>
+            </div>
+          </article>
+
+          <article class="testimonial-card stagger-up magnetic-target">
+            <p class="testimonial-quote">
+              Nothing generic, nothing ornamental; just bold design choices that kept working.
+            </p>
+            <div class="testimonial-meta">
+              <h3>Sofia Kline</h3>
+              <p>Brand Strategist, Lumen Path</p>
+            </div>
+          </article>
+
+          <article class="testimonial-card stagger-up magnetic-target">
+            <p class="testimonial-quote">
+              The site now feels like a statement piece instead of a portfolio template.
+            </p>
+            <div class="testimonial-meta">
+              <h3>Marco Elian</h3>
+              <p>Founder, Atelier One</p>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer section" id="footer">
+    <div class="container footer-grid">
+      <div>
+        <p class="section-kicker" data-reveal="text">
+          <span class="reveal-line"><span>07 / CONTACT</span></span>
+        </p>
+        <a class="footer-email glow magnetic-target" href="mailto:hello@nikolaradeski.com">
+          hello@nikolaradeski.com
+        </a>
+      </div>
+
+      <div class="footer-links">
+        <a class="magnetic-target" href="#">Instagram</a>
+        <a class="magnetic-target" href="#">Behance</a>
+        <a class="magnetic-target" href="#">LinkedIn</a>
+        <a class="magnetic-target" href="#">Dribbble</a>
+      </div>
+    </div>
+  </footer>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@studio-freight/lenis@1.0.42/dist/lenis.min.js"></script>
+  <script src="script.js"></script>
 </body>
 </html>
