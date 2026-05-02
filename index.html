@@ -1,110 +1,141 @@
 <!DOCTYPE html>
-<html lang="uz" data-theme="dark">
+<html lang="uz">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>BIZUSTA — Individual Yechim</title>
-<link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,wght@0,300;0,400;0,500;0,700;0,900;1,300&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;700;900&display=swap" rel="stylesheet">
 <style>
 *,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
-
-[data-theme="dark"]{
-  --bg:#0d0d0d;--bg2:#141414;--bg3:#1a1a1a;
-  --txt:#ffffff;--txt2:#aaaaaa;--txt3:#555555;
-  --border:#222222;--border2:#333333;
-  --accent:#94AFC9;--accent2:#2F496E;
-  --card:#161616;--hover:#1e1e1e;
-}
-[data-theme="light"]{
-  --bg:#ffffff;--bg2:#f5f5f3;--bg3:#eeeeeb;
-  --txt:#0d0d0d;--txt2:#555555;--txt3:#999999;
-  --border:#e0e0dd;--border2:#ccccca;
-  --accent:#2F496E;--accent2:#94AFC9;
-  --card:#f9f9f7;--hover:#f0f0ee;
-}
-
 html{scroll-behavior:smooth;overflow-x:hidden}
-body{background:var(--bg);color:var(--txt);font-family:'DM Sans',sans-serif;overflow-x:hidden;cursor:none;transition:background .4s,color .4s}
+
+body{
+  font-family:'DM Sans',sans-serif;
+  overflow-x:hidden;
+  cursor:none;
+}
+
+/* ===== DARK (default) ===== */
+body.dark{
+  background:#0d0d0d;
+  color:#ffffff;
+  --bg:#0d0d0d;
+  --bg2:#141414;
+  --bg3:#1e1e1e;
+  --txt:#ffffff;
+  --txt2:#aaaaaa;
+  --txt3:#555555;
+  --border:#222222;
+  --border2:#333333;
+  --accent:#94AFC9;
+  --accent2:#2F496E;
+  --card:#161616;
+  --hover:#1e1e1e;
+  --hbg:rgba(13,13,13,0.94);
+}
+
+/* ===== LIGHT ===== */
+body.light{
+  background:#ffffff;
+  color:#0d0d0d;
+  --bg:#ffffff;
+  --bg2:#f5f5f3;
+  --bg3:#ebebeb;
+  --txt:#0d0d0d;
+  --txt2:#555555;
+  --txt3:#999999;
+  --border:#e0e0dd;
+  --border2:#ccccca;
+  --accent:#2F496E;
+  --accent2:#94AFC9;
+  --card:#f9f9f7;
+  --hover:#f0f0ee;
+  --hbg:rgba(255,255,255,0.96);
+}
 
 /* CURSOR */
-.cur{width:8px;height:8px;background:var(--accent);border-radius:50%;position:fixed;pointer-events:none;z-index:9999;transition:transform .15s}
-.cur-r{width:32px;height:32px;border:1px solid rgba(148,175,201,.3);border-radius:50%;position:fixed;pointer-events:none;z-index:9998;transition:all .28s cubic-bezier(.25,.46,.45,.94)}
+.cur{width:8px;height:8px;background:var(--accent);border-radius:50%;position:fixed;pointer-events:none;z-index:9999}
+.cur-r{width:32px;height:32px;border:1px solid rgba(148,175,201,.35);border-radius:50%;position:fixed;pointer-events:none;z-index:9998}
 @media(hover:none){.cur,.cur-r{display:none}}
 
 /* HEADER */
-header{position:fixed;top:0;left:0;right:0;z-index:500;display:flex;align-items:center;justify-content:space-between;padding:18px 52px;background:rgba(13,13,13,.92);backdrop-filter:blur(24px);border-bottom:1px solid var(--border);transition:all .4s}
-[data-theme="light"] header{background:rgba(255,255,255,.94)}
-.logo{font-family:'DM Sans',sans-serif;font-size:20px;font-weight:900;letter-spacing:.06em;color:var(--txt);text-decoration:none}
+header{
+  position:fixed;top:0;left:0;right:0;z-index:500;
+  display:flex;align-items:center;justify-content:space-between;
+  padding:18px 52px;
+  background:var(--hbg);
+  backdrop-filter:blur(24px);
+  -webkit-backdrop-filter:blur(24px);
+  border-bottom:1px solid var(--border);
+}
+.logo{font-size:20px;font-weight:900;letter-spacing:.06em;color:var(--txt);text-decoration:none}
 .logo span{color:var(--accent)}
-.hright{display:flex;align-items:center;gap:10px}
-nav{display:flex;align-items:center;gap:28px}
-nav a{font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--txt3);text-decoration:none;font-weight:600;transition:color .3s}
-nav a:hover,nav a.act{color:var(--txt)}
+nav{display:flex;align-items:center;gap:24px}
+nav a{font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--txt3);text-decoration:none;font-weight:600;transition:color .2s}
+nav a:hover{color:var(--txt)}
+.hright{display:flex;align-items:center;gap:8px}
 
 /* LANG */
 .lang-sw{display:flex;border:1px solid var(--border2);border-radius:4px;overflow:hidden}
-.lang-btn{font-size:9px;letter-spacing:.12em;padding:7px 11px;background:transparent;color:var(--txt3);border:none;cursor:none;transition:all .25s;font-family:'DM Sans',sans-serif;font-weight:700;text-transform:uppercase}
-.lang-btn.on{background:var(--accent);color:#fff}
+.lbtn{font-size:9px;letter-spacing:.1em;padding:7px 11px;background:transparent;color:var(--txt3);border:none;cursor:none;font-family:'DM Sans',sans-serif;font-weight:700;text-transform:uppercase;transition:all .2s}
+.lbtn.on{background:var(--accent);color:#fff}
+.lbtn:not(.on):hover{background:var(--hover);color:var(--txt)}
 
-/* THEME */
-.theme-btn{width:34px;height:34px;border-radius:50%;border:1px solid var(--border2);background:transparent;cursor:none;display:flex;align-items:center;justify-content:center;font-size:15px;transition:all .3s}
-.theme-btn:hover{border-color:var(--accent)}
+/* ICON BTNS */
+.ibtn{width:34px;height:34px;border-radius:50%;border:1px solid var(--border2);background:transparent;cursor:none;display:flex;align-items:center;justify-content:center;font-size:15px;transition:border-color .2s;flex-shrink:0}
+.ibtn:hover{border-color:var(--accent)}
+.ibtn.playing{border-color:var(--accent);background:rgba(148,175,201,.1)}
 
-/* MUSIC BTN */
-.music-btn{width:34px;height:34px;border-radius:50%;border:1px solid var(--border2);background:transparent;cursor:none;display:flex;align-items:center;justify-content:center;font-size:15px;transition:all .3s;position:relative}
-.music-btn:hover{border-color:var(--accent)}
-.music-btn.playing{border-color:var(--accent);background:rgba(148,175,201,.1)}
-.music-wave{position:absolute;bottom:-3px;left:50%;transform:translateX(-50%);display:flex;gap:1.5px;align-items:flex-end;height:6px;opacity:0;transition:opacity .3s}
-.music-btn.playing .music-wave{opacity:1}
-.mw{width:2px;background:var(--accent);border-radius:1px;animation:wave 1s ease-in-out infinite}
-.mw:nth-child(1){height:3px;animation-delay:0s}
-.mw:nth-child(2){height:5px;animation-delay:.15s}
-.mw:nth-child(3){height:4px;animation-delay:.3s}
-.mw:nth-child(4){height:6px;animation-delay:.1s}
-@keyframes wave{0%,100%{transform:scaleY(1)}50%{transform:scaleY(.4)}}
+/* MUSIC WAVES */
+.mwrap{display:none;gap:1.5px;align-items:flex-end;height:8px;margin-left:3px}
+.ibtn.playing .mwrap{display:flex}
+.mw{width:2px;background:var(--accent);border-radius:1px;animation:mw 1s ease-in-out infinite}
+.mw:nth-child(1){height:3px}.mw:nth-child(2){height:6px;animation-delay:.15s}.mw:nth-child(3){height:4px;animation-delay:.3s}.mw:nth-child(4){height:7px;animation-delay:.08s}
+@keyframes mw{0%,100%{transform:scaleY(1)}50%{transform:scaleY(.3)}}
+.music-inner{display:flex;align-items:center}
 
 /* CTA */
-.hcta{padding:9px 20px;background:var(--accent);color:#fff;font-size:10px;letter-spacing:.15em;text-transform:uppercase;font-weight:700;text-decoration:none;border-radius:100px;transition:all .3s;white-space:nowrap}
+.hcta{padding:9px 20px;background:var(--accent);color:#fff;font-size:10px;letter-spacing:.15em;text-transform:uppercase;font-weight:700;text-decoration:none;border-radius:100px;transition:background .2s;white-space:nowrap}
 .hcta:hover{background:var(--accent2)}
 
 /* HERO */
 #hero{min-height:100vh;display:grid;grid-template-columns:1fr 1fr;padding-top:72px}
-.hero-l{padding:72px 52px 72px;display:flex;flex-direction:column;justify-content:center}
-.hero-tag{display:inline-flex;align-items:center;gap:10px;background:var(--bg3);border:1px solid var(--border2);padding:8px 16px;border-radius:100px;font-size:11px;color:var(--txt2);margin-bottom:36px;width:fit-content;font-weight:400}
-.hero-tag::before{content:'';width:7px;height:7px;background:#4ade80;border-radius:50%;flex-shrink:0}
-.hero-who{font-size:11px;letter-spacing:.3em;text-transform:uppercase;color:var(--txt3);margin-bottom:14px;font-weight:600}
-/* MUHIM: shrift qalinligi 900 */
-.hero-h1{font-family:'DM Sans',sans-serif;font-size:clamp(68px,10.5vw,152px);font-weight:900;line-height:.88;letter-spacing:-.03em;color:var(--txt);text-transform:uppercase;margin-bottom:4px}
-.hero-h2{font-family:'DM Sans',sans-serif;font-size:clamp(68px,10.5vw,152px);font-weight:900;line-height:.88;letter-spacing:-.03em;color:var(--accent);text-transform:uppercase;margin-bottom:32px}
-.hero-subs{font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:var(--txt3);margin-bottom:20px;font-weight:600}
-.hero-shior{font-size:15px;line-height:1.7;color:var(--txt2);font-weight:300;margin-bottom:44px;max-width:480px;border-left:2px solid var(--accent);padding-left:18px}
-.hero-btns{display:flex;gap:12px;flex-wrap:wrap}
-.btn-p{padding:14px 32px;background:var(--accent);color:#fff;font-size:10px;letter-spacing:.18em;text-transform:uppercase;font-weight:700;text-decoration:none;border-radius:100px;transition:all .3s;border:none;cursor:none;font-family:'DM Sans',sans-serif}
-.btn-p:hover{background:var(--accent2);transform:translateY(-2px)}
-.btn-s{padding:14px 32px;border:1.5px solid var(--border2);color:var(--txt);font-size:10px;letter-spacing:.18em;text-transform:uppercase;font-weight:700;text-decoration:none;border-radius:100px;transition:all .3s;cursor:none;font-family:'DM Sans',sans-serif}
-.btn-s:hover{border-color:var(--accent);color:var(--accent);transform:translateY(-2px)}
+.hero-l{padding:72px 52px;display:flex;flex-direction:column;justify-content:center}
+.htag{display:inline-flex;align-items:center;gap:10px;background:var(--bg3);border:1px solid var(--border2);padding:8px 16px;border-radius:100px;font-size:11px;color:var(--txt2);margin-bottom:32px;width:fit-content}
+.htag::before{content:'';width:7px;height:7px;background:#4ade80;border-radius:50%;flex-shrink:0}
+.hwho{font-size:11px;letter-spacing:.3em;text-transform:uppercase;color:var(--txt3);margin-bottom:12px;font-weight:600}
+.hh1{font-size:clamp(68px,10.5vw,152px);font-weight:900;line-height:.88;letter-spacing:-.03em;color:var(--txt);text-transform:uppercase;margin-bottom:4px}
+.hh2{font-size:clamp(68px,10.5vw,152px);font-weight:900;line-height:.88;letter-spacing:-.03em;color:var(--accent);text-transform:uppercase;margin-bottom:28px}
+.hsubs{font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:var(--txt3);margin-bottom:14px;font-weight:600}
+.hshior{font-size:15px;line-height:1.7;color:var(--txt2);font-weight:300;margin-bottom:40px;max-width:480px;border-left:2px solid var(--accent);padding-left:18px}
+.hbtns{display:flex;gap:12px;flex-wrap:wrap}
+.btnp{padding:14px 32px;background:var(--accent);color:#fff;font-size:10px;letter-spacing:.18em;text-transform:uppercase;font-weight:700;text-decoration:none;border-radius:100px;transition:background .2s;border:none;cursor:none;font-family:'DM Sans',sans-serif}
+.btnp:hover{background:var(--accent2)}
+.btns{padding:14px 32px;border:1.5px solid var(--border2);color:var(--txt);font-size:10px;letter-spacing:.18em;text-transform:uppercase;font-weight:700;text-decoration:none;border-radius:100px;transition:all .2s;cursor:none;font-family:'DM Sans',sans-serif}
+.btns:hover{border-color:var(--accent);color:var(--accent)}
 
 /* HERO RIGHT */
-.hero-r{position:relative;overflow:hidden;background:var(--bg2);min-height:100%}
+.hero-r{position:relative;overflow:hidden;background:var(--bg2)}
 .hero-img{width:100%;height:100%;object-fit:cover;object-position:center top;display:block}
-.hero-img-ph{width:100%;height:100%;min-height:500px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:16px}
-.hero-img-ph-icon{font-size:56px;opacity:.1}
-.hero-img-ph-txt{font-size:10px;letter-spacing:.35em;text-transform:uppercase;color:var(--txt3)}
-.hero-grad{position:absolute;inset:0;background:linear-gradient(to right,var(--bg) 0%,transparent 30%),linear-gradient(to top,var(--bg) 0%,transparent 18%)}
-.hero-badge{position:absolute;bottom:36px;right:28px;background:rgba(13,13,13,.88);backdrop-filter:blur(20px);border:1px solid var(--border2);padding:16px 20px;border-left:2px solid var(--accent)}
-[data-theme="light"] .hero-badge{background:rgba(255,255,255,.92)}
-.hb-name{font-size:17px;font-weight:700;color:var(--txt);margin-bottom:3px;letter-spacing:.02em}
+.hero-ph{width:100%;height:100%;min-height:500px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:16px}
+.hero-ph-icon{font-size:56px;opacity:.1}
+.hero-ph-txt{font-size:10px;letter-spacing:.35em;text-transform:uppercase;color:var(--txt3)}
+.hero-grad{position:absolute;inset:0;pointer-events:none}
+body.dark .hero-grad{background:linear-gradient(to right,#0d0d0d 0%,transparent 30%),linear-gradient(to top,#0d0d0d 0%,transparent 18%)}
+body.light .hero-grad{background:linear-gradient(to right,#ffffff 0%,transparent 30%),linear-gradient(to top,#ffffff 0%,transparent 18%)}
+.hbadge{position:absolute;bottom:36px;right:28px;padding:16px 20px;border-left:2px solid var(--accent)}
+body.dark .hbadge{background:rgba(13,13,13,.9);border:1px solid #333;border-left:2px solid var(--accent)}
+body.light .hbadge{background:rgba(255,255,255,.95);border:1px solid #ccc;border-left:2px solid var(--accent)}
+.hb-name{font-size:17px;font-weight:700;color:var(--txt);margin-bottom:3px}
 .hb-role{font-size:9px;letter-spacing:.3em;text-transform:uppercase;color:var(--accent)}
 .hb-exp{font-size:11px;color:var(--txt3);margin-top:3px}
-
-/* SCROLL IND */
 .scroll-ind{position:absolute;bottom:28px;left:52px;display:flex;flex-direction:column;align-items:flex-start;gap:7px;z-index:2;opacity:.5}
-.s-line{width:1px;height:42px;background:linear-gradient(to bottom,var(--accent),transparent);animation:sa 2s ease-in-out infinite}
+.sbar{width:1px;height:42px;background:linear-gradient(to bottom,var(--accent),transparent);animation:sa 2s ease-in-out infinite}
 @keyframes sa{0%{transform:scaleY(0);transform-origin:top}49%{transform:scaleY(1);transform-origin:top}50%{transform:scaleY(1);transform-origin:bottom}100%{transform:scaleY(0);transform-origin:bottom}}
-.s-txt{font-size:8px;letter-spacing:.4em;text-transform:uppercase;color:var(--txt3)}
+.stxt{font-size:8px;letter-spacing:.4em;text-transform:uppercase;color:var(--txt3)}
 
 /* TICKER */
-.ticker{overflow:hidden;padding:12px 0;border-top:1px solid var(--border);border-bottom:1px solid var(--border)}
+.ticker{overflow:hidden;padding:12px 0;border-top:1px solid var(--border);border-bottom:1px solid var(--border);background:var(--bg)}
 .ti{display:flex;animation:tk 30s linear infinite;white-space:nowrap}
 .titem{font-size:10px;letter-spacing:.38em;text-transform:uppercase;color:var(--txt3);padding:0 28px;display:inline-flex;align-items:center;gap:28px}
 .titem::after{content:'✦';color:var(--accent);font-size:7px}
@@ -113,20 +144,19 @@ nav a:hover,nav a.act{color:var(--txt)}
 /* ABOUT */
 #about{padding:100px 52px;display:grid;grid-template-columns:1fr 1fr;gap:72px;align-items:start;border-top:1px solid var(--border)}
 .sec-tag{font-size:10px;letter-spacing:.42em;text-transform:uppercase;color:var(--accent);margin-bottom:12px;display:block}
-.sec-h{font-family:'DM Sans',sans-serif;font-size:clamp(32px,4.5vw,60px);font-weight:900;line-height:.92;letter-spacing:-.025em;color:var(--txt);margin-bottom:32px;text-transform:uppercase}
+.sec-h{font-size:clamp(32px,4.5vw,60px);font-weight:900;line-height:.92;letter-spacing:-.025em;color:var(--txt);margin-bottom:32px;text-transform:uppercase}
 .sec-h em{color:var(--accent);font-style:normal}
-.about-text{font-size:14px;line-height:1.85;color:var(--txt2);font-weight:300;margin-bottom:14px}
-.about-stats{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:40px;padding-top:36px;border-top:1px solid var(--border)}
-.stat-n{font-family:'DM Sans',sans-serif;font-size:48px;font-weight:900;color:var(--accent);line-height:1;letter-spacing:-.02em}
-.stat-l{font-size:9px;letter-spacing:.22em;text-transform:uppercase;color:var(--txt3);margin-top:5px}
-.ota-card{background:var(--card);border:1px solid var(--border);padding:32px;position:relative;overflow:hidden}
-.ota-card::before{content:'';position:absolute;top:-40px;right:-40px;width:140px;height:140px;background:radial-gradient(circle,rgba(148,175,201,.07),transparent 70%)}
+.atxt{font-size:14px;line-height:1.85;color:var(--txt2);font-weight:300;margin-bottom:14px}
+.astats{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:40px;padding-top:36px;border-top:1px solid var(--border)}
+.stn{font-size:48px;font-weight:900;color:var(--accent);line-height:1;letter-spacing:-.02em}
+.stl{font-size:9px;letter-spacing:.22em;text-transform:uppercase;color:var(--txt3);margin-top:5px}
+.ota-card{background:var(--card);border:1px solid var(--border);padding:32px}
 .ota-lbl{font-size:9px;letter-spacing:.42em;text-transform:uppercase;color:var(--accent);margin-bottom:18px;display:block}
-.ota-name{font-family:'DM Sans',sans-serif;font-size:40px;font-weight:900;color:var(--txt);line-height:.92;letter-spacing:-.02em;text-transform:uppercase;margin-bottom:5px}
+.ota-name{font-size:40px;font-weight:900;color:var(--txt);line-height:.92;letter-spacing:-.02em;text-transform:uppercase;margin-bottom:5px}
 .ota-role{font-size:10px;letter-spacing:.18em;color:var(--txt3);text-transform:uppercase;margin-bottom:20px}
 .ota-text{font-size:13px;line-height:1.85;color:var(--txt2);font-weight:300;margin-bottom:24px}
 .ota-exp{display:flex;align-items:center;gap:14px;padding:18px;background:var(--bg);border:1px solid var(--border)}
-.ota-exp-n{font-family:'DM Sans',sans-serif;font-size:40px;font-weight:900;color:var(--accent);line-height:1;letter-spacing:-.02em}
+.ota-exp-n{font-size:40px;font-weight:900;color:var(--accent);line-height:1;letter-spacing:-.02em}
 .ota-exp-l{font-size:11px;font-weight:700;color:var(--txt);margin-bottom:2px}
 .ota-exp-s{font-size:10px;color:var(--txt3)}
 
@@ -134,98 +164,90 @@ nav a:hover,nav a.act{color:var(--txt)}
 #catalog{padding:100px 0;border-top:1px solid var(--border)}
 .cat-head{padding:0 52px;margin-bottom:40px}
 .cat-tabs{display:flex;border-bottom:1px solid var(--border);padding:0 52px}
-.cat-tab{font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--txt3);font-weight:700;padding:16px 26px;cursor:none;border:none;background:transparent;transition:all .3s;font-family:'DM Sans',sans-serif;border-bottom:2px solid transparent;margin-bottom:-1px}
-.cat-tab:hover{color:var(--txt)}
-.cat-tab.on{color:var(--txt);border-bottom-color:var(--accent)}
-
-/* XONA PANEL */
-.xona-panel,.uslub-panel{display:none;padding:32px 52px 0}
-.xona-panel.on,.uslub-panel.on{display:block}
-.xona-list{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:10px}
-.xona-item{background:var(--card);border:1px solid var(--border);padding:16px 20px;cursor:none;transition:all .28s;display:flex;align-items:center;justify-content:space-between;gap:10px;border-radius:4px}
-.xona-item:hover{background:var(--hover);border-color:var(--accent);transform:translateX(3px)}
-.xona-item.on{background:var(--accent);border-color:var(--accent)}
-.xona-item.on .xi-name,.xona-item.on .xi-arr{color:#fff}
-.xi-name{font-size:13px;font-weight:600;color:var(--txt);transition:color .3s}
-.xi-arr{font-size:16px;color:var(--txt3);transition:all .3s}
-.xona-item:hover .xi-arr{color:var(--accent);transform:translateX(3px)}
-.xona-item.on:hover .xi-arr{color:#fff}
-
-/* SUB NAV */
+.ctab{font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--txt3);font-weight:700;padding:16px 26px;cursor:none;border:none;background:transparent;font-family:'DM Sans',sans-serif;border-bottom:2px solid transparent;margin-bottom:-1px;transition:color .2s,border-color .2s}
+.ctab:hover{color:var(--txt)}
+.ctab.on{color:var(--txt);border-bottom-color:var(--accent)}
+.xpanel,.upanel{display:none;padding:32px 52px 0}
+.xpanel.on,.upanel.on{display:block}
+.xlist{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:10px}
+.xi{background:var(--card);border:1px solid var(--border);padding:16px 20px;cursor:none;transition:all .2s;display:flex;align-items:center;justify-content:space-between;border-radius:4px}
+.xi:hover:not(.on){background:var(--hover);border-color:var(--accent)}
+.xi.on{background:var(--accent);border-color:var(--accent)}
+.xi.on .xin,.xi.on .xia{color:#fff}
+.xin{font-size:13px;font-weight:600;color:var(--txt)}
+.xia{font-size:16px;color:var(--txt3)}
 .sub-nav{margin-top:24px;padding:20px 0;border-top:1px solid var(--border)}
-.sub-nav-lbl{font-size:9px;letter-spacing:.4em;text-transform:uppercase;color:var(--accent);margin-bottom:14px;display:block}
-.uslub-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(175px,1fr));gap:8px}
-.uslub-card{background:var(--card);border:1px solid var(--border);padding:14px 18px;cursor:none;transition:all .28s;display:flex;align-items:center;justify-content:space-between;border-radius:4px}
-.uslub-card:hover{background:var(--hover);border-color:var(--accent);transform:translateY(-2px)}
-.uslub-card.on{background:var(--accent);border-color:var(--accent)}
-.uslub-card.on .uc-name,.uslub-card.on .uc-arr{color:#fff}
-.uc-name{font-size:12px;font-weight:600;color:var(--txt)}
-.uc-arr{font-size:14px;color:var(--txt3)}
+.sub-lbl{font-size:9px;letter-spacing:.4em;text-transform:uppercase;color:var(--accent);margin-bottom:14px;display:block}
+.ugrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(175px,1fr));gap:8px}
+.uc{background:var(--card);border:1px solid var(--border);padding:14px 18px;cursor:none;transition:all .2s;display:flex;align-items:center;justify-content:space-between;border-radius:4px}
+.uc:hover:not(.on){background:var(--hover);border-color:var(--accent)}
+.uc.on{background:var(--accent);border-color:var(--accent)}
+.uc.on .ucn,.uc.on .uca{color:#fff}
+.ucn{font-size:12px;font-weight:600;color:var(--txt)}
+.uca{font-size:14px;color:var(--txt3)}
 
 /* GALLERY */
 #gallery{padding:56px 52px 100px;border-top:1px solid var(--border);min-height:260px}
-.gal-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:36px;flex-wrap:wrap;gap:12px}
-.gal-title{font-family:'DM Sans',sans-serif;font-size:clamp(22px,3vw,38px);font-weight:900;letter-spacing:-.02em;color:var(--txt);text-transform:uppercase}
-.gal-title span{color:var(--accent)}
-.gal-count{font-size:10px;letter-spacing:.25em;color:var(--txt3);text-transform:uppercase}
-.gal-grid{columns:3;column-gap:10px}
-.gal-item{break-inside:avoid;margin-bottom:10px;position:relative;overflow:hidden;cursor:none;background:var(--bg2);border-radius:3px}
-.gal-item img{width:100%;display:block;transition:transform .6s cubic-bezier(.25,.46,.45,.94)}
-.gal-item:hover img{transform:scale(1.04)}
-.gal-ph{width:100%;aspect-ratio:4/3;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px;background:var(--bg2);border:1.5px dashed var(--border2);border-radius:3px;transition:all .3s}
-.gal-ph:hover{border-color:var(--accent)}
-.gal-ph-icon{font-size:24px;opacity:.2}
-.gal-ph-txt{font-size:9px;letter-spacing:.28em;text-transform:uppercase;color:var(--txt3)}
-.gal-ph.tall{aspect-ratio:3/4}
-.gal-ov{position:absolute;inset:0;background:linear-gradient(to top,rgba(0,0,0,.85),transparent 52%);opacity:0;transition:opacity .3s}
-.gal-item:hover .gal-ov{opacity:1}
-.gal-info{position:absolute;bottom:0;left:0;right:0;padding:16px 18px;transform:translateY(5px);transition:transform .3s}
-.gal-item:hover .gal-info{transform:translateY(0)}
-.gal-cat{font-size:8px;letter-spacing:.28em;text-transform:uppercase;color:var(--accent);margin-bottom:3px}
-.gal-name{font-size:15px;font-weight:700;color:#fff}
-.gal-empty{text-align:center;padding:64px 20px;color:var(--txt3)}
-.gal-empty-icon{font-size:36px;opacity:.18;margin-bottom:12px}
-.gal-empty-txt{font-size:10px;letter-spacing:.28em;text-transform:uppercase}
+.ghead{display:flex;align-items:center;justify-content:space-between;margin-bottom:36px;flex-wrap:wrap;gap:12px}
+.gtitle{font-size:clamp(22px,3vw,38px);font-weight:900;letter-spacing:-.02em;color:var(--txt);text-transform:uppercase}
+.gtitle span{color:var(--accent)}
+.gcnt{font-size:10px;letter-spacing:.25em;color:var(--txt3);text-transform:uppercase}
+.ggrid{columns:3;column-gap:10px}
+.gi{break-inside:avoid;margin-bottom:10px;position:relative;overflow:hidden;cursor:none;background:var(--bg2);border-radius:3px}
+.gi img{width:100%;display:block;transition:transform .6s cubic-bezier(.25,.46,.45,.94)}
+.gi:hover img{transform:scale(1.04)}
+.gph{width:100%;aspect-ratio:4/3;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px;background:var(--bg2);border:1.5px dashed var(--border2);border-radius:3px}
+.gph-icon{font-size:24px;opacity:.2}
+.gph-txt{font-size:9px;letter-spacing:.28em;text-transform:uppercase;color:var(--txt3)}
+.gov{position:absolute;inset:0;background:linear-gradient(to top,rgba(0,0,0,.85),transparent 52%);opacity:0;transition:opacity .3s}
+.gi:hover .gov{opacity:1}
+.ginfo{position:absolute;bottom:0;left:0;right:0;padding:16px 18px;transform:translateY(5px);transition:transform .3s}
+.gi:hover .ginfo{transform:translateY(0)}
+.gcat{font-size:8px;letter-spacing:.28em;text-transform:uppercase;color:var(--accent);margin-bottom:3px}
+.gname{font-size:15px;font-weight:700;color:#fff}
+.gempty{text-align:center;padding:64px 20px;color:var(--txt3)}
+.gempty-icon{font-size:36px;opacity:.18;margin-bottom:12px}
+.gempty-txt{font-size:10px;letter-spacing:.28em;text-transform:uppercase}
 
 /* CONTACT */
 #contact{padding:100px 52px;border-top:1px solid var(--border);display:grid;grid-template-columns:1fr 1fr;gap:72px;align-items:center}
-.contact-big{font-family:'DM Sans',sans-serif;font-size:clamp(44px,6.5vw,96px);font-weight:900;line-height:.88;letter-spacing:-.03em;color:var(--txt);text-transform:uppercase;margin-bottom:24px}
-.contact-big em{color:var(--accent);font-style:normal}
-.contact-note{font-size:13px;color:var(--txt2);line-height:1.8;font-weight:300}
+.cbig{font-size:clamp(44px,6.5vw,96px);font-weight:900;line-height:.88;letter-spacing:-.03em;color:var(--txt);text-transform:uppercase;margin-bottom:24px}
+.cbig em{color:var(--accent);font-style:normal}
+.cnote{font-size:13px;color:var(--txt2);line-height:1.8;font-weight:300}
 .clinks{display:flex;flex-direction:column;gap:9px}
-.clink{display:flex;align-items:center;gap:16px;padding:18px 22px;border:1px solid var(--border);text-decoration:none;color:var(--txt);background:var(--card);transition:all .32s;position:relative;overflow:hidden;border-radius:4px}
-.clink::before{content:'';position:absolute;inset:0;background:var(--accent);transform:translateX(-100%);transition:transform .38s cubic-bezier(.25,.46,.45,.94)}
+.clink{display:flex;align-items:center;gap:16px;padding:18px 22px;border:1px solid var(--border);text-decoration:none;color:var(--txt);background:var(--card);transition:all .3s;position:relative;overflow:hidden;border-radius:4px}
+.clink::before{content:'';position:absolute;inset:0;background:var(--accent);transform:translateX(-100%);transition:transform .35s cubic-bezier(.25,.46,.45,.94)}
 .clink:hover::before{transform:translateX(0)}
-.clink>*{position:relative;z-index:1;transition:color .2s}
-.clink:hover .cl-lbl,.clink:hover .cl-val{color:#fff}
+.clink>*{position:relative;z-index:1}
+.clink:hover .cl-lbl,.clink:hover .cl-val,.clink:hover .cl-arr{color:#fff}
 .cl-icon{font-size:19px}
 .cl-info{flex:1}
-.cl-lbl{font-size:8px;letter-spacing:.3em;text-transform:uppercase;color:var(--accent);margin-bottom:2px;transition:color .3s}
-.cl-val{font-size:14px;font-weight:500;transition:color .3s}
-.cl-arr{color:var(--border2);font-size:14px;opacity:0;transform:translateX(-5px);transition:all .3s}
-.clink:hover .cl-arr{opacity:1;transform:translateX(0);color:#fff}
+.cl-lbl{font-size:8px;letter-spacing:.3em;text-transform:uppercase;color:var(--accent);margin-bottom:2px;transition:color .2s}
+.cl-val{font-size:14px;font-weight:500;color:var(--txt);transition:color .2s}
+.cl-arr{color:var(--txt3);font-size:14px;opacity:0;transform:translateX(-5px);transition:all .2s}
+.clink:hover .cl-arr{opacity:1;transform:translateX(0)}
 
 /* FOOTER */
-footer{padding:32px 52px;border-top:1px solid var(--border);display:flex;align-items:center;justify-content:space-between}
-.f-logo{font-family:'DM Sans',sans-serif;font-size:18px;font-weight:900;letter-spacing:.06em;color:var(--txt)}
-.f-logo span{color:var(--accent)}
-.f-r{text-align:right}
-.f-name{font-size:10px;letter-spacing:.1em;color:var(--txt3);margin-bottom:3px}
-.f-copy{font-size:9px;letter-spacing:.18em;text-transform:uppercase;color:var(--border2)}
+footer{padding:32px 52px;border-top:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;background:var(--bg)}
+.flogo{font-size:18px;font-weight:900;letter-spacing:.06em;color:var(--txt)}
+.flogo span{color:var(--accent)}
+.fr{text-align:right}
+.fn{font-size:10px;letter-spacing:.1em;color:var(--txt3);margin-bottom:3px}
+.fc{font-size:9px;letter-spacing:.18em;text-transform:uppercase;color:var(--border2)}
 
 /* LIGHTBOX */
 .lb{position:fixed;inset:0;background:rgba(0,0,0,.96);z-index:2000;display:flex;align-items:center;justify-content:center;opacity:0;visibility:hidden;transition:all .3s}
 .lb.on{opacity:1;visibility:visible}
-.lb-img{max-width:90vw;max-height:88vh;object-fit:contain;transform:scale(.95);transition:transform .38s cubic-bezier(.25,.46,.45,.94)}
+.lb-img{max-width:90vw;max-height:88vh;object-fit:contain;transform:scale(.95);transition:transform .38s}
 .lb.on .lb-img{transform:scale(1)}
-.lb-close{position:absolute;top:20px;right:24px;font-size:24px;color:rgba(255,255,255,.45);cursor:none;background:none;border:none;transition:color .2s;font-family:'DM Sans',sans-serif;line-height:1}
-.lb-close:hover{color:#fff}
-.lb-prev,.lb-next{position:absolute;top:50%;transform:translateY(-50%);font-size:34px;color:rgba(255,255,255,.35);cursor:none;background:none;border:none;padding:14px;transition:color .2s;font-family:'DM Sans',sans-serif}
-.lb-prev{left:8px}.lb-next{right:8px}
-.lb-prev:hover,.lb-next:hover{color:#fff}
+.lb-x{position:absolute;top:20px;right:24px;font-size:24px;color:rgba(255,255,255,.45);cursor:none;background:none;border:none;font-family:'DM Sans',sans-serif}
+.lb-x:hover{color:#fff}
+.lb-p,.lb-n{position:absolute;top:50%;transform:translateY(-50%);font-size:34px;color:rgba(255,255,255,.35);cursor:none;background:none;border:none;padding:14px;font-family:'DM Sans',sans-serif;transition:color .2s}
+.lb-p{left:8px}.lb-n{right:8px}
+.lb-p:hover,.lb-n:hover{color:#fff}
 .lb-info{position:absolute;bottom:20px;left:50%;transform:translateX(-50%);text-align:center}
 .lb-name{font-size:15px;font-weight:700;color:#fff;margin-bottom:3px}
-.lb-cat{font-size:9px;letter-spacing:.28em;text-transform:uppercase;color:var(--accent)}
+.lb-cat{font-size:9px;letter-spacing:.28em;text-transform:uppercase;color:#94AFC9}
 .lb-cnt{font-size:9px;color:rgba(255,255,255,.3);margin-top:5px;letter-spacing:.18em}
 
 /* REVEAL */
@@ -241,32 +263,31 @@ footer{padding:32px 52px;border-top:1px solid var(--border);display:flex;align-i
   .hero-r{min-height:55vw}
   #about{grid-template-columns:1fr;padding:72px 20px;gap:40px}
   #catalog{padding:72px 0}
-  .cat-head,.cat-tabs,.xona-panel,.uslub-panel{padding-left:20px;padding-right:20px}
-  .cat-tab{padding:13px 14px;font-size:10px}
-  .xona-list,.uslub-grid{grid-template-columns:1fr 1fr}
+  .cat-head,.cat-tabs,.xpanel,.upanel{padding-left:20px;padding-right:20px}
+  .ctab{padding:13px 14px;font-size:10px}
+  .xlist,.ugrid{grid-template-columns:1fr 1fr}
   #gallery{padding:40px 20px 72px}
-  .gal-grid{columns:2}
+  .ggrid{columns:2}
   #contact{grid-template-columns:1fr;padding:72px 20px;gap:40px}
   footer{padding:22px 20px;flex-direction:column;gap:10px;text-align:center}
   .scroll-ind{left:20px}
 }
 </style>
 </head>
-<body>
+<body class="dark">
 
 <div class="cur" id="cur"></div>
 <div class="cur-r" id="curR"></div>
 
-<!-- AUDIO -->
-<audio id="audioTungi" loop src="tungi.mp3"></audio>
-<audio id="audioKunduz" loop src="kunduzgi.mp3"></audio>
+<audio id="aTungi" loop src="tungi.mp3" preload="none"></audio>
+<audio id="aKunduz" loop src="kunduzgi.mp3" preload="none"></audio>
 
 <!-- LIGHTBOX -->
-<div class="lb" id="lightbox">
-  <button class="lb-close" id="lbClose">✕</button>
-  <button class="lb-prev" id="lbPrev">‹</button>
+<div class="lb" id="lb">
+  <button class="lb-x" id="lbX">✕</button>
+  <button class="lb-p" id="lbP">‹</button>
   <img class="lb-img" id="lbImg" src="" alt="">
-  <button class="lb-next" id="lbNext">›</button>
+  <button class="lb-n" id="lbN">›</button>
   <div class="lb-info">
     <div class="lb-name" id="lbName"></div>
     <div class="lb-cat" id="lbCat"></div>
@@ -275,96 +296,63 @@ footer{padding:32px 52px;border-top:1px solid var(--border);display:flex;align-i
 </div>
 
 <!-- HEADER -->
-<header id="hdr">
+<header>
   <a href="#" class="logo">BIZ<span>USTA</span></a>
   <nav>
-    <a href="#catalog" class="act" data-uz="Xonalar" data-kril="Хоналар" data-ru="Комнаты">Xonalar</a>
-    <a href="#about" data-uz="Haqimizda" data-kril="Ҳақимизда" data-ru="О нас">Haqimizda</a>
-    <a href="#contact" data-uz="Bog'lanish" data-kril="Боғланиш" data-ru="Контакт">Bog'lanish</a>
+    <a href="#catalog" id="nXona">Xonalar</a>
+    <a href="#about" id="nHaq">Haqimizda</a>
+    <a href="#contact" id="nBog">Bog'lanish</a>
   </nav>
   <div class="hright">
     <div class="lang-sw">
-      <button class="lang-btn on" data-lang="uz">UZ</button>
-      <button class="lang-btn" data-lang="kril">ЎЗ</button>
-      <button class="lang-btn" data-lang="ru">RU</button>
+      <button class="lbtn on" data-l="uz">UZ</button>
+      <button class="lbtn" data-l="kril">ЎЗ</button>
+      <button class="lbtn" data-l="ru">RU</button>
     </div>
-    <button class="theme-btn" id="themeBtn">🌙</button>
-    <button class="music-btn" id="musicBtn" title="Musiqa">
-      🎵
-      <div class="music-wave">
-        <div class="mw"></div><div class="mw"></div>
-        <div class="mw"></div><div class="mw"></div>
+    <button class="ibtn" id="themeBtn">🌙</button>
+    <button class="ibtn" id="musicBtn">
+      <div class="music-inner">
+        <span id="musicIcon">🎵</span>
+        <div class="mwrap">
+          <div class="mw"></div><div class="mw"></div>
+          <div class="mw"></div><div class="mw"></div>
+        </div>
       </div>
     </button>
-    <a href="#contact" class="hcta" data-uz="Bog'lanish" data-kril="Боғланиш" data-ru="Связаться">Bog'lanish</a>
+    <a href="#contact" class="hcta" id="hCta">Bog'lanish</a>
   </div>
 </header>
 
 <!-- HERO -->
 <section id="hero">
   <div class="hero-l">
-    <div class="hero-tag"
-      data-uz="Urgut · Samarqand"
-      data-kril="Урғут · Самарқанд"
-      data-ru="Ургут · Самарканд">Urgut · Samarqand</div>
-    <p class="hero-who"
-      data-uz="Muhammadqodir Umarov"
-      data-kril="Муҳаммадқодир Умаров"
-      data-ru="Мухаммадкадир Умаров">Muhammadqodir Umarov</p>
-    <h1 class="hero-h1"
-      data-uz="Odelka &"
-      data-kril="Оделка &"
-      data-ru="Отделка &">Odelka &</h1>
-    <h1 class="hero-h2"
-      data-uz="Dizayn"
-      data-kril="Дизайн"
-      data-ru="Дизайн">Dizayn</h1>
-    <p class="hero-subs"
-      data-uz="Interior dizayner & Usta"
-      data-kril="Интерьер дизайнер & Уста"
-      data-ru="Дизайнер интерьера & Мастер">Interior dizayner & Usta</p>
-    <p class="hero-shior"
-      data-uz="Har bir loyihaga — individual yechim beruchi BIZUSTA jamoasi"
-      data-kril="Ҳар бир лойиҳага — индивидуал ечим берувчи BIZUSTA жамоаси"
-      data-ru="BIZUSTA — команда, дающая индивидуальное решение каждому проекту">
-      Har bir loyihaga — individual yechim beruchi BIZUSTA jamoasi
-    </p>
-    <div class="hero-btns">
-      <a href="#catalog" class="btn-p"
-        data-uz="Ishlarni ko'rish"
-        data-kril="Ишларни кўриш"
-        data-ru="Смотреть работы">Ishlarni ko'rish</a>
-      <a href="#contact" class="btn-s"
-        data-uz="Bog'lanish"
-        data-kril="Боғланиш"
-        data-ru="Связаться">Bog'lanish</a>
+    <div class="htag" id="hTag">Urgut · Samarqand</div>
+    <p class="hwho" id="hWho">Muhammadqodir Umarov</p>
+    <h1 class="hh1" id="hH1">Odelka &</h1>
+    <h1 class="hh2" id="hH2">Dizayn</h1>
+    <p class="hsubs" id="hSubs">Interior dizayner & Usta</p>
+    <p class="hshior" id="hShior">Har bir loyihaga — individual yechim beruchi BIZUSTA jamoasi</p>
+    <div class="hbtns">
+      <a href="#catalog" class="btnp" id="hBtn1">Ishlarni ko'rish</a>
+      <a href="#contact" class="btns" id="hBtn2">Bog'lanish</a>
     </div>
   </div>
   <div class="hero-r">
-    <!-- Rasm shu yerga: <img src="images/ota.jpg" class="hero-img" alt="Saidov Umid"> -->
-    <div class="hero-img-ph">
-      <div class="hero-img-ph-icon">🏠</div>
-      <div class="hero-img-ph-txt"
-        data-uz="Rasm yuklanadi"
-        data-kril="Расм юкланади"
-        data-ru="Фото загрузится">Rasm yuklanadi</div>
+    <!-- Rasm: <img src="images/ota.jpg" class="hero-img" alt="Saidov Umid"> -->
+    <div class="hero-ph">
+      <div class="hero-ph-icon">🏠</div>
+      <div class="hero-ph-txt" id="hPh">Rasm yuklanadi</div>
     </div>
     <div class="hero-grad"></div>
-    <div class="hero-badge">
+    <div class="hbadge">
       <div class="hb-name">Saidov Umid</div>
-      <div class="hb-role"
-        data-uz="Bosh Usta"
-        data-kril="Бош Уста"
-        data-ru="Главный Мастер">Bosh Usta</div>
-      <div class="hb-exp"
-        data-uz="25+ yillik tajriba"
-        data-kril="25+ йиллик тажриба"
-        data-ru="25+ лет опыта">25+ yillik tajriba</div>
+      <div class="hb-role" id="hbRole">Bosh Usta</div>
+      <div class="hb-exp" id="hbExp">25+ yillik tajriba</div>
     </div>
   </div>
   <div class="scroll-ind">
-    <div class="s-line"></div>
-    <span class="s-txt">Scroll</span>
+    <div class="sbar"></div>
+    <span class="stxt">Scroll</span>
   </div>
 </section>
 
@@ -379,42 +367,27 @@ footer{padding:32px 52px;border-top:1px solid var(--border);display:flex;align-i
 <!-- ABOUT -->
 <section id="about">
   <div class="rv">
-    <span class="sec-tag" data-uz="/ Biz haqimizda" data-kril="/ Биз ҳақимизда" data-ru="/ О нас">/ Biz haqimizda</span>
-    <h2 class="sec-h"><span data-uz="Tajriba va" data-kril="Тажриба ва" data-ru="Опыт и">Tajriba va</span> <em><span data-uz="Yangilik" data-kril="Янгилик" data-ru="Инновации">Yangilik</span></em></h2>
-    <p class="about-text"
-      data-uz="Men — Muhammadqodir Umarov. 7 yildan ziyod odelka sohasida ishlab kelaman. Bu sohaga otam sababli kirib kelganman — u malyarka sohasida 25 yildan ziyod faoliyat yuritib keladi."
-      data-kril="Мен — Муҳаммадқодир Умаров. 7 йилдан зиёд оделка соҳасида ишлаб келаман. Бу соҳага отам сабабли кириб келганман — у маляркa соҳасида 25 йилдан зиёд фаолият юритиб келади."
-      data-ru="Я — Мухаммадкадир Умаров. Более 7 лет работаю в сфере отделки. В эту сферу меня привёл отец, который занимается малярными работами уже более 25 лет.">
-      Men — Muhammadqodir Umarov. 7 yildan ziyod odelka sohasida ishlab kelaman. Bu sohaga otam sababli kirib kelganman — u malyarka sohasida 25 yildan ziyod faoliyat yuritib keladi.
-    </p>
-    <p class="about-text"
-      data-uz="Bu fursatdan foydalanib, kuchli ota tajribasi va yangicha dizayn hamda texnologiyani birlashtirdim. Dizayn sohasini 3 yildan buyon o'rganib kelayapman. Yaqin 1 yil ichida Moskvada malaka oshirib keldim."
-      data-kril="Бу фурсатдан фойдаланиб, кучли ота тажрибаси ва янгича дизайн ҳамда технологияни бирлаштирдим. Дизайн соҳасини 3 йилдан буён ўрганиб келаяпман. Яқин 1 йил ичида Москвада малака ошириб келдим."
-      data-ru="Объединил богатый опыт отца с современным дизайном и технологиями. Изучаю дизайн более 3 лет. За последний год прошёл повышение квалификации в Москве.">
-      Bu fursatdan foydalanib, kuchli ota tajribasi va yangicha dizayn hamda texnologiyani birlashtirdim. Dizayn sohasini 3 yildan buyon o'rganib kelayapman. Yaqin 1 yil ichida Moskvada malaka oshirib keldim.
-    </p>
-    <div class="about-stats">
-      <div><div class="stat-n">7+</div><div class="stat-l" data-uz="Yil odelka" data-kril="Йил оделка" data-ru="Лет отделки">Yil odelka</div></div>
-      <div><div class="stat-n">25+</div><div class="stat-l" data-uz="Ota tajribasi" data-kril="Ота тажрибаси" data-ru="Опыт отца">Ota tajribasi</div></div>
-      <div><div class="stat-n">14</div><div class="stat-l" data-uz="Uslub" data-kril="Услуб" data-ru="Стилей">Uslub</div></div>
+    <span class="sec-tag" id="aTag">/ Biz haqimizda</span>
+    <h2 class="sec-h" id="aH">Tajriba va <em>Yangilik</em></h2>
+    <p class="atxt" id="aT1">Men — Muhammadqodir Umarov. 7 yildan ziyod odelka sohasida ishlab kelaman. Bu sohaga otam sababli kirib kelganman — u malyarka sohasida 25 yildan ziyod faoliyat yuritib keladi.</p>
+    <p class="atxt" id="aT2">Bu fursatdan foydalanib, kuchli ota tajribasi va yangicha dizayn hamda texnologiyani birlashtirdim. Dizayn sohasini 3 yildan buyon o'rganib kelayapman. Yaqin 1 yil ichida Moskvada malaka oshirib keldim.</p>
+    <div class="astats">
+      <div><div class="stn">7+</div><div class="stl" id="aS1">Yil odelka</div></div>
+      <div><div class="stn">25+</div><div class="stl" id="aS2">Ota tajribasi</div></div>
+      <div><div class="stn">14</div><div class="stl" id="aS3">Uslub</div></div>
     </div>
   </div>
   <div class="rv">
     <div class="ota-card">
-      <span class="ota-lbl" data-uz="/ Bosh Usta · Asos" data-kril="/ Бош Уста · Асос" data-ru="/ Главный Мастер">/ Bosh Usta · Asos</span>
+      <span class="ota-lbl" id="oLbl">/ Bosh Usta · Asos</span>
       <div class="ota-name">Saidov<br>Umid</div>
-      <div class="ota-role" data-uz="Malyarka ustasi" data-kril="Маляркa устаси" data-ru="Мастер малярных работ">Malyarka ustasi</div>
-      <p class="ota-text"
-        data-uz="25 yildan ortiq davomida yuzlab uylarni go'zallashtirib kelgan. Uning qo'li tekkan har bir devor — san'at asari."
-        data-kril="25 йилдан ортиқ давомида юзлаб уйларни гўзаллаштириб келган. Унинг қўли текган ҳар бир девор — санъат асари."
-        data-ru="Более 25 лет украшает дома. Каждая стена, к которой он прикоснулся — настоящее произведение искусства.">
-        25 yildan ortiq davomida yuzlab uylarni go'zallashtirib kelgan. Uning qo'li tekkan har bir devor — san'at asari.
-      </p>
+      <div class="ota-role" id="oRole">Malyarka ustasi</div>
+      <p class="ota-text" id="oText">25 yildan ortiq davomida yuzlab uylarni go'zallashtirib kelgan. Uning qo'li tekkan har bir devor — san'at asari.</p>
       <div class="ota-exp">
         <div class="ota-exp-n">25+</div>
         <div>
-          <div class="ota-exp-l" data-uz="Yillik tajriba" data-kril="Йиллик тажриба" data-ru="Лет опыта">Yillik tajriba</div>
-          <div class="ota-exp-s" data-uz="Malyarka · Odelka · Bezak" data-kril="Маляркa · Оделка · Безак" data-ru="Малярка · Отделка · Декор">Malyarka · Odelka · Bezak</div>
+          <div class="ota-exp-l" id="oExpL">Yillik tajriba</div>
+          <div class="ota-exp-s" id="oExpS">Malyarka · Odelka · Bezak</div>
         </div>
       </div>
     </div>
@@ -424,75 +397,43 @@ footer{padding:32px 52px;border-top:1px solid var(--border);display:flex;align-i
 <!-- CATALOG -->
 <section id="catalog">
   <div class="cat-head">
-    <span class="sec-tag" data-uz="/ Katalog" data-kril="/ Каталог" data-ru="/ Каталог">/ Katalog</span>
-    <h2 class="sec-h rv" style="margin-bottom:0">
-      <span data-uz="Xona yoki" data-kril="Хона ёки" data-ru="Комната или">Xona yoki</span>
-      <em> <span data-uz="Uslub" data-kril="Услуб" data-ru="Стиль">Uslub</span></em>
-    </h2>
+    <span class="sec-tag" id="cTag">/ Katalog</span>
+    <h2 class="sec-h rv" id="cH">Xona yoki <em>Uslub</em></h2>
   </div>
   <div class="cat-tabs">
-    <button class="cat-tab on" data-panel="xona"
-      data-uz="Xona bo'yicha" data-kril="Хона бўйича" data-ru="По комнате">Xona bo'yicha</button>
-    <button class="cat-tab" data-panel="uslub"
-      data-uz="Uslub bo'yicha" data-kril="Услуб бўйича" data-ru="По стилю">Uslub bo'yicha</button>
+    <button class="ctab on" data-p="x" id="tXona">Xona bo'yicha</button>
+    <button class="ctab" data-p="u" id="tUslub">Uslub bo'yicha</button>
   </div>
 
   <!-- XONA PANEL -->
-  <div class="xona-panel on" id="xonaPanel">
-    <div class="xona-list" id="xonaList">
-      <div class="xona-item on" data-xona="mehmonxona"><span class="xi-name" data-uz="Mehmonxona" data-kril="Меҳмонхона" data-ru="Гостиная">Mehmonxona</span><span class="xi-arr">→</span></div>
-      <div class="xona-item" data-xona="kattalar"><span class="xi-name" data-uz="Kattalar xonasi" data-kril="Катталар хонаси" data-ru="Спальня взрослых">Kattalar xonasi</span><span class="xi-arr">→</span></div>
-      <div class="xona-item" data-xona="bolalar"><span class="xi-name" data-uz="Bolalar xonasi" data-kril="Болалар хонаси" data-ru="Детская">Bolalar xonasi</span><span class="xi-arr">→</span></div>
-      <div class="xona-item" data-xona="qizlar"><span class="xi-name" data-uz="Qizlar xonasi" data-kril="Қизлар хонаси" data-ru="Комната девочек">Qizlar xonasi</span><span class="xi-arr">→</span></div>
-      <div class="xona-item" data-xona="koridor"><span class="xi-name" data-uz="Koridor" data-kril="Коридор" data-ru="Коридор">Koridor</span><span class="xi-arr">→</span></div>
-      <div class="xona-item" data-xona="oshxona"><span class="xi-name" data-uz="Oshxona" data-kril="Ошхона" data-ru="Кухня">Oshxona</span><span class="xi-arr">→</span></div>
-      <div class="xona-item" data-xona="hojatxona"><span class="xi-name" data-uz="Hojatxona" data-kril="Ҳожатхона" data-ru="Туалет">Hojatxona</span><span class="xi-arr">→</span></div>
-      <div class="xona-item" data-xona="hammom"><span class="xi-name" data-uz="Hammom" data-kril="Ҳаммом" data-ru="Ванная">Hammom</span><span class="xi-arr">→</span></div>
-      <div class="xona-item" data-xona="sanuziel"><span class="xi-name" data-uz="Umumiy Sanuziel" data-kril="Умумий Санузел" data-ru="Совмещённый санузел">Umumiy Sanuziel</span><span class="xi-arr">→</span></div>
-    </div>
-    <!-- Xona uslublari -->
-    <div class="sub-nav" id="xonaUslubNav">
-      <span class="sub-nav-lbl" id="xonaUslubLbl">Mehmonxona uslublari</span>
-      <div class="uslub-grid" id="xonaUslubGrid"></div>
+  <div class="xpanel on" id="xPanel">
+    <div class="xlist" id="xList"></div>
+    <div class="sub-nav">
+      <span class="sub-lbl" id="xSubLbl">Mehmonxona uslublari</span>
+      <div class="ugrid" id="xUGrid"></div>
     </div>
   </div>
 
   <!-- USLUB PANEL -->
-  <div class="uslub-panel" id="uslubPanel">
-    <div class="uslub-grid" id="uslubList">
-      <div class="uslub-card on" data-uslub="minimalizm"><span class="uc-name">Minimalizm</span><span class="uc-arr">→</span></div>
-      <div class="uslub-card" data-uslub="skandinaviya"><span class="uc-name">Skandinaviya</span><span class="uc-arr">→</span></div>
-      <div class="uslub-card" data-uslub="brutalizm"><span class="uc-name">Brutalizm</span><span class="uc-arr">→</span></div>
-      <div class="uslub-card" data-uslub="biofilik"><span class="uc-name">Biofilik</span><span class="uc-arr">→</span></div>
-      <div class="uslub-card" data-uslub="neoklassika"><span class="uc-name">Neoklassika</span><span class="uc-arr">→</span></div>
-      <div class="uslub-card" data-uslub="industrial"><span class="uc-name">Industrial</span><span class="uc-arr">→</span></div>
-      <div class="uslub-card" data-uslub="vintage"><span class="uc-name">Vintage</span><span class="uc-arr">→</span></div>
-      <div class="uslub-card" data-uslub="eklektika"><span class="uc-name">Eklektika</span><span class="uc-arr">→</span></div>
-      <div class="uslub-card" data-uslub="midcentury"><span class="uc-name">Mid-Century</span><span class="uc-arr">→</span></div>
-      <div class="uslub-card" data-uslub="japandi"><span class="uc-name">Japandi</span><span class="uc-arr">→</span></div>
-      <div class="uslub-card" data-uslub="artdeco"><span class="uc-name">Art-Deco</span><span class="uc-arr">→</span></div>
-      <div class="uslub-card" data-uslub="barokko"><span class="uc-name">Barokko</span><span class="uc-arr">→</span></div>
-      <div class="uslub-card" data-uslub="kontemporari"><span class="uc-name">Kontemporari</span><span class="uc-arr">→</span></div>
-      <div class="uslub-card" data-uslub="hightech"><span class="uc-name">High-Tech</span><span class="uc-arr">→</span></div>
-    </div>
-    <!-- Uslub xonalari -->
+  <div class="upanel" id="uPanel">
+    <div class="ugrid" id="uList"></div>
     <div class="sub-nav">
-      <span class="sub-nav-lbl" id="uslubXonaLbl">Minimalizm xonalari</span>
-      <div class="xona-list" id="uslubXonaGrid"></div>
+      <span class="sub-lbl" id="uSubLbl">Minimalizm xonalari</span>
+      <div class="xlist" id="uXGrid"></div>
     </div>
   </div>
 </section>
 
 <!-- GALLERY -->
 <section id="gallery">
-  <div class="gal-head">
-    <div class="gal-title" id="galTitle">Mehmonxona · <span>Minimalizm</span></div>
-    <div class="gal-count" id="galCount">0 ta rasm</div>
+  <div class="ghead">
+    <div class="gtitle" id="gTitle">Mehmonxona · <span>Minimalizm</span></div>
+    <div class="gcnt" id="gCnt">0 ta rasm</div>
   </div>
-  <div class="gal-grid" id="galGrid">
-    <div class="gal-empty" id="galEmpty">
-      <div class="gal-empty-icon">📸</div>
-      <div class="gal-empty-txt" data-uz="Rasmlar yuklanmoqda..." data-kril="Расмлар юкланмоқда..." data-ru="Фото загружаются...">Rasmlar yuklanmoqda...</div>
+  <div class="ggrid" id="gGrid">
+    <div class="gempty" id="gEmpty">
+      <div class="gempty-icon">📸</div>
+      <div class="gempty-txt" id="gEmptyTxt">Rasmlar yuklanmoqda...</div>
     </div>
   </div>
 </section>
@@ -500,16 +441,8 @@ footer{padding:32px 52px;border-top:1px solid var(--border);display:flex;align-i
 <!-- CONTACT -->
 <section id="contact">
   <div class="rv">
-    <h2 class="contact-big">
-      <span data-uz="Loyihani" data-kril="Лойиҳани" data-ru="Проект">Loyihani</span><br>
-      <em><span data-uz="Boshlaylik" data-kril="Бошлайлик" data-ru="Начнём">Boshlaylik</span></em>
-    </h2>
-    <p class="contact-note"
-      data-uz="Bepul maslahat uchun bugun bog'laning. Xonangiz o'lchamini ayting — individual yechim taklif qilamiz."
-      data-kril="Бепул маслаҳат учун бугун боғланинг. Хонангиз ўлчамини айтинг — индивидуал ечим таклиф қиламиз."
-      data-ru="Свяжитесь сегодня для бесплатной консультации. Укажите размер комнаты — предложим индивидуальное решение.">
-      Bepul maslahat uchun bugun bog'laning. Xonangiz o'lchamini ayting — individual yechim taklif qilamiz.
-    </p>
+    <h2 class="cbig" id="ctBig">Loyihani<br><em>Boshlaylik</em></h2>
+    <p class="cnote" id="ctNote">Bepul maslahat uchun bugun bog'laning. Xonangiz o'lchamini ayting — individual yechim taklif qilamiz.</p>
   </div>
   <div class="clinks rv">
     <a href="https://t.me/bizusta" class="clink">
@@ -524,68 +457,190 @@ footer{padding:32px 52px;border-top:1px solid var(--border);display:flex;align-i
     </a>
     <a href="tel:+998978979111" class="clink">
       <span class="cl-icon">📱</span>
-      <div class="cl-info">
-        <div class="cl-lbl" data-uz="Telefon" data-kril="Телефон" data-ru="Телефон">Telefon</div>
-        <div class="cl-val">+998 97 897 91 11</div>
-      </div>
+      <div class="cl-info"><div class="cl-lbl" id="ctTel">Telefon</div><div class="cl-val">+998 97 897 91 11</div></div>
       <span class="cl-arr">→</span>
     </a>
   </div>
 </section>
 
 <footer>
-  <div class="f-logo">BIZ<span>USTA</span></div>
-  <div class="f-r">
-    <div class="f-name">Muhammadqodir Umarov & Saidov Umid</div>
-    <div class="f-copy">© 2025 Bizusta.uz — <span data-uz="Individual Yechim" data-kril="Индивидуал Ечим" data-ru="Индивидуальное Решение">Individual Yechim</span></div>
+  <div class="flogo">BIZ<span>USTA</span></div>
+  <div class="fr">
+    <div class="fn">Muhammadqodir Umarov & Saidov Umid</div>
+    <div class="fc" id="fCopy">© 2025 Bizusta.uz — Individual Yechim</div>
   </div>
 </footer>
 
 <script>
-// ── DATA ──
-const USLUBLAR = ['minimalizm','skandinaviya','brutalizm','biofilik','neoklassika','industrial','vintage','eklektika','midcentury','japandi','artdeco','barokko','kontemporari','hightech'];
-const USLUB_NAMES = {minimalizm:'Minimalizm',skandinaviya:'Skandinaviya',brutalizm:'Brutalizm',biofilik:'Biofilik',neoklassika:'Neoklassika',industrial:'Industrial',vintage:'Vintage',eklektika:'Eklektika',midcentury:'Mid-Century',japandi:'Japandi',artdeco:'Art-Deco',barokko:'Barokko',kontemporari:'Kontemporari',hightech:'High-Tech'};
-const XONALAR = ['mehmonxona','kattalar','bolalar','qizlar','koridor','oshxona','hojatxona','hammom','sanuziel'];
-const XONA_NAMES = {mehmonxona:'Mehmonxona',kattalar:'Kattalar xonasi',bolalar:'Bolalar xonasi',qizlar:'Qizlar xonasi',koridor:'Koridor',oshxona:'Oshxona',hojatxona:'Hojatxona',hammom:'Hammom',sanuziel:'Umumiy Sanuziel'};
+// ═══════════════════════════════
+//  DATA
+// ═══════════════════════════════
+const XONALAR = [
+  {id:'mehmonxona', uz:"Mehmonxona", kril:"Меҳмонхона", ru:"Гостиная"},
+  {id:'kattalar',   uz:"Kattalar xonasi", kril:"Катталар хонаси", ru:"Спальня взрослых"},
+  {id:'bolalar',    uz:"Bolalar xonasi", kril:"Болалар хонаси", ru:"Детская"},
+  {id:'qizlar',     uz:"Qizlar xonasi", kril:"Қизлар хонаси", ru:"Комната девочек"},
+  {id:'koridor',    uz:"Koridor", kril:"Коридор", ru:"Коридор"},
+  {id:'oshxona',    uz:"Oshxona", kril:"Ошхона", ru:"Кухня"},
+  {id:'hojatxona',  uz:"Hojatxona", kril:"Ҳожатхона", ru:"Туалет"},
+  {id:'hammom',     uz:"Hammom", kril:"Ҳаммом", ru:"Ванная"},
+  {id:'sanuziel',   uz:"Umumiy Sanuziel", kril:"Умумий Санузел", ru:"Совмещённый санузел"},
+];
+const USLUBLAR = [
+  {id:'minimalizm',    n:"Minimalizm"},
+  {id:'skandinaviya',  n:"Skandinaviya"},
+  {id:'brutalizm',     n:"Brutalizm"},
+  {id:'biofilik',      n:"Biofilik"},
+  {id:'neoklassika',   n:"Neoklassika"},
+  {id:'industrial',    n:"Industrial"},
+  {id:'vintage',       n:"Vintage"},
+  {id:'eklektika',     n:"Eklektika"},
+  {id:'midcentury',    n:"Mid-Century"},
+  {id:'japandi',       n:"Japandi"},
+  {id:'artdeco',       n:"Art-Deco"},
+  {id:'barokko',       n:"Barokko"},
+  {id:'kontemporari',  n:"Kontemporari"},
+  {id:'hightech',      n:"High-Tech"},
+];
 
-// IMAGES: Rasm kelganda shu yerga qo'shing
-// Format: IMAGES['xona-uslub'] = ['images/1.jpg','images/2.jpg',...]
-const IMAGES = {};
-XONALAR.forEach(x=>USLUBLAR.forEach(u=>{IMAGES[x+'-'+u]=[];}));
+// RASMLAR — Rasm kelganda shu yerga qo'shing:
+// IMGS['mehmonxona-minimalizm'] = ['images/1.jpg','images/2.jpg']
+const IMGS = {};
+XONALAR.forEach(x=>USLUBLAR.forEach(u=>{IMGS[x.id+'-'+u.id]=[];}));
 
-// ── CURSOR ──
-const cur=document.getElementById('cur'),curR=document.getElementById('curR');
+// ═══════════════════════════════
+//  TRANSLATIONS
+// ═══════════════════════════════
+const T = {
+  uz: {
+    nXona:"Xonalar", nHaq:"Haqimizda", nBog:"Bog'lanish",
+    hTag:"Urgut · Samarqand", hWho:"Muhammadqodir Umarov",
+    hH1:"Odelka &", hH2:"Dizayn", hSubs:"Interior dizayner & Usta",
+    hShior:"Har bir loyihaga — individual yechim beruchi BIZUSTA jamoasi",
+    hBtn1:"Ishlarni ko'rish", hBtn2:"Bog'lanish", hPh:"Rasm yuklanadi",
+    hbRole:"Bosh Usta", hbExp:"25+ yillik tajriba",
+    aTag:"/ Biz haqimizda", aH:"Tajriba va <em>Yangilik</em>",
+    aT1:"Men — Muhammadqodir Umarov. 7 yildan ziyod odelka sohasida ishlab kelaman. Bu sohaga otam sababli kirib kelganman — u malyarka sohasida 25 yildan ziyod faoliyat yuritib keladi.",
+    aT2:"Bu fursatdan foydalanib, kuchli ota tajribasi va yangicha dizayn hamda texnologiyani birlashtirdim. Dizayn sohasini 3 yildan buyon o'rganib kelayapman. Yaqin 1 yil ichida Moskvada malaka oshirib keldim.",
+    aS1:"Yil odelka", aS2:"Ota tajribasi", aS3:"Uslub",
+    oLbl:"/ Bosh Usta · Asos", oRole:"Malyarka ustasi",
+    oText:"25 yildan ortiq davomida yuzlab uylarni go'zallashtirib kelgan. Uning qo'li tekkan har bir devor — san'at asari.",
+    oExpL:"Yillik tajriba", oExpS:"Malyarka · Odelka · Bezak",
+    cTag:"/ Katalog", cH:"Xona yoki <em>Uslub</em>",
+    tXona:"Xona bo'yicha", tUslub:"Uslub bo'yicha",
+    ctBig:"Loyihani<br><em>Boshlaylik</em>",
+    ctNote:"Bepul maslahat uchun bugun bog'laning. Xonangiz o'lchamini ayting — individual yechim taklif qilamiz.",
+    ctTel:"Telefon", hCta:"Bog'lanish",
+    gEmptyTxt:"Rasmlar yuklanmoqda...",
+    fCopy:"© 2025 Bizusta.uz — Individual Yechim",
+    xSubSuffix:" uslublari", uSubSuffix:" xonalari",
+  },
+  kril: {
+    nXona:"Хоналар", nHaq:"Ҳақимизда", nBog:"Боғланиш",
+    hTag:"Урғут · Самарқанд", hWho:"Муҳаммадқодир Умаров",
+    hH1:"Оделка &", hH2:"Дизайн", hSubs:"Интерьер дизайнер & Уста",
+    hShior:"Ҳар бир лойиҳага — индивидуал ечим берувчи BIZUSTA жамоаси",
+    hBtn1:"Ишларни кўриш", hBtn2:"Боғланиш", hPh:"Расм юкланади",
+    hbRole:"Бош Уста", hbExp:"25+ йиллик тажриба",
+    aTag:"/ Биз ҳақимизда", aH:"Тажриба ва <em>Янгилик</em>",
+    aT1:"Мен — Муҳаммадқодир Умаров. 7 йилдан зиёд оделка соҳасида ишлаб келаман. Бу соҳага отам сабабли кириб келганман — у маляркa соҳасида 25 йилдан зиёд фаолият юритиб келади.",
+    aT2:"Бу фурсатдан фойдаланиб, кучли ота тажрибаси ва янгича дизайн ҳамда технологияни бирлаштирдим. Дизайн соҳасини 3 йилдан буён ўрганиб келаяпман. Яқин 1 йил ичида Москвада малака ошириб келдим.",
+    aS1:"Йил оделка", aS2:"Ота тажрибаси", aS3:"Услуб",
+    oLbl:"/ Бош Уста · Асос", oRole:"Маляркa устаси",
+    oText:"25 йилдан ортиқ давомида юзлаб уйларни гўзаллаштириб келган. Унинг қўли текган ҳар бир девор — санъат асари.",
+    oExpL:"Йиллик тажриба", oExpS:"Маляркa · Оделка · Безак",
+    cTag:"/ Каталог", cH:"Хона ёки <em>Услуб</em>",
+    tXona:"Хона бўйича", tUslub:"Услуб бўйича",
+    ctBig:"Лойиҳани<br><em>Бошлайлик</em>",
+    ctNote:"Бепул маслаҳат учун бугун боғланинг. Хонангиз ўлчамини айтинг — индивидуал ечим таклиф қиламиз.",
+    ctTel:"Телефон", hCta:"Боғланиш",
+    gEmptyTxt:"Расмлар юкланмоқда...",
+    fCopy:"© 2025 Bizusta.uz — Индивидуал Ечим",
+    xSubSuffix:" услублари", uSubSuffix:" хоналари",
+  },
+  ru: {
+    nXona:"Комнаты", nHaq:"О нас", nBog:"Контакт",
+    hTag:"Ургут · Самарканд", hWho:"Мухаммадкадир Умаров",
+    hH1:"Отделка &", hH2:"Дизайн", hSubs:"Дизайнер интерьера & Мастер",
+    hShior:"BIZUSTA — команда, дающая индивидуальное решение каждому проекту",
+    hBtn1:"Смотреть работы", hBtn2:"Связаться", hPh:"Фото загрузится",
+    hbRole:"Главный Мастер", hbExp:"25+ лет опыта",
+    aTag:"/ О нас", aH:"Опыт и <em>Инновации</em>",
+    aT1:"Я — Мухаммадкадир Умаров. Более 7 лет работаю в сфере отделки. В эту сферу меня привёл отец, который занимается малярными работами уже более 25 лет.",
+    aT2:"Объединил богатый опыт отца с современным дизайном и технологиями. Изучаю дизайн более 3 лет. За последний год прошёл повышение квалификации в Москве.",
+    aS1:"Лет отделки", aS2:"Опыт отца", aS3:"Стилей",
+    oLbl:"/ Главный Мастер", oRole:"Мастер малярных работ",
+    oText:"Более 25 лет украшает дома. Каждая стена, к которой он прикоснулся — настоящее произведение искусства.",
+    oExpL:"Лет опыта", oExpS:"Малярка · Отделка · Декор",
+    cTag:"/ Каталог", cH:"Комната или <em>Стиль</em>",
+    tXona:"По комнате", tUslub:"По стилю",
+    ctBig:"Начнём<br><em>Проект</em>",
+    ctNote:"Свяжитесь сегодня для бесплатной консультации. Укажите размер комнаты — предложим индивидуальное решение.",
+    ctTel:"Телефон", hCta:"Связаться",
+    gEmptyTxt:"Фото загружаются...",
+    fCopy:"© 2025 Bizusta.uz — Индивидуальное Решение",
+    xSubSuffix:" стили", uSubSuffix:" комнаты",
+  }
+};
+
+// ═══════════════════════════════
+//  CURSOR
+// ═══════════════════════════════
+const cur=document.getElementById('cur');
+const curR=document.getElementById('curR');
 let mx=0,my=0,rx=0,ry=0;
-document.addEventListener('mousemove',e=>{mx=e.clientX;my=e.clientY;cur.style.left=mx-4+'px';cur.style.top=my-4+'px'});
-(function t(){rx+=(mx-rx-16)*.1;ry+=(my-ry-16)*.1;curR.style.left=rx+'px';curR.style.top=ry+'px';requestAnimationFrame(t)})();
+document.addEventListener('mousemove',e=>{
+  mx=e.clientX; my=e.clientY;
+  cur.style.left=(mx-4)+'px';
+  cur.style.top=(my-4)+'px';
+});
+(function tick(){
+  rx+=(mx-rx-16)*.1;
+  ry+=(my-ry-16)*.1;
+  curR.style.left=rx+'px';
+  curR.style.top=ry+'px';
+  requestAnimationFrame(tick);
+})();
 
-// ── THEME ──
-let theme='dark';
-const themeBtn=document.getElementById('themeBtn');
-function setTheme(t){
-  theme=t;
-  document.documentElement.setAttribute('data-theme',t);
-  themeBtn.textContent=t==='dark'?'🌙':'☀️';
-  localStorage.setItem('bz-theme',t);
-  // Musiqa almashtirish
-  if(musicPlaying) switchMusic();
+// ═══════════════════════════════
+//  THEME
+// ═══════════════════════════════
+let theme = localStorage.getItem('bz-theme')||'dark';
+const body = document.body;
+const themeBtn = document.getElementById('themeBtn');
+
+function applyTheme(t){
+  theme = t;
+  body.className = t + (musicPlaying?' ':' ');
+  body.classList.remove('dark','light');
+  body.classList.add(t);
+  themeBtn.textContent = t==='dark'?'🌙':'☀️';
+  localStorage.setItem('bz-theme', t);
+  if(musicPlaying) switchAudio();
 }
-const saved=localStorage.getItem('bz-theme');
-if(saved) setTheme(saved);
-themeBtn.addEventListener('click',()=>setTheme(theme==='dark'?'light':'dark'));
 
-// ── MUSIC ──
-const aTungi=document.getElementById('audioTungi');
-const aKunduz=document.getElementById('audioKunduz');
-const musicBtn=document.getElementById('musicBtn');
-let musicPlaying=false;
+themeBtn.addEventListener('click',()=>{
+  applyTheme(theme==='dark'?'light':'dark');
+});
 
-function currentAudio(){return theme==='dark'?aTungi:aKunduz;}
-function switchMusic(){
-  const prev=theme==='dark'?aKunduz:aTungi;
-  const next=currentAudio();
-  prev.pause();prev.currentTime=0;
-  if(musicPlaying){next.play().catch(()=>{});}
+// ═══════════════════════════════
+//  MUSIC
+// ═══════════════════════════════
+let musicPlaying = false;
+const aTungi = document.getElementById('aTungi');
+const aKunduz = document.getElementById('aKunduz');
+const musicBtn = document.getElementById('musicBtn');
+
+function currentAudio(){
+  return theme==='dark' ? aTungi : aKunduz;
+}
+function otherAudio(){
+  return theme==='dark' ? aKunduz : aTungi;
+}
+function switchAudio(){
+  otherAudio().pause();
+  otherAudio().currentTime=0;
+  if(musicPlaying) currentAudio().play().catch(()=>{});
 }
 
 musicBtn.addEventListener('click',()=>{
@@ -601,152 +656,212 @@ musicBtn.addEventListener('click',()=>{
   }
 });
 
-// ── LANG ──
-let lang='uz';
-document.querySelectorAll('.lang-btn').forEach(btn=>{
+// ═══════════════════════════════
+//  LANGUAGE
+// ═══════════════════════════════
+let lang = 'uz';
+
+function applyLang(l){
+  lang = l;
+  const t = T[l];
+  // Apply to all ID-based elements
+  Object.keys(t).forEach(key=>{
+    if(key==='xSubSuffix'||key==='uSubSuffix') return;
+    const el = document.getElementById(key);
+    if(el) el.innerHTML = t[key];
+  });
+  // Rebuild catalog lists with new lang
+  buildXList();
+  buildUList();
+  buildXUGrid();
+  buildUXGrid();
+  // Update gallery labels
+  renderGallery();
+}
+
+document.querySelectorAll('.lbtn').forEach(btn=>{
   btn.addEventListener('click',()=>{
-    lang=btn.dataset.lang;
-    document.querySelectorAll('.lang-btn').forEach(b=>b.classList.remove('on'));
+    document.querySelectorAll('.lbtn').forEach(b=>b.classList.remove('on'));
     btn.classList.add('on');
-    applyLang();
+    applyLang(btn.dataset.l);
   });
 });
-function applyLang(){
-  document.querySelectorAll('[data-'+lang+']').forEach(el=>{
-    const v=el.getAttribute('data-'+lang);
-    if(v!==null) el.innerHTML=v;
-  });
+
+// ═══════════════════════════════
+//  STATE
+// ═══════════════════════════════
+let curXona = 'mehmonxona';
+let curUslub = 'minimalizm';
+let curMode = 'x';
+
+function getXonaName(id){
+  const x = XONALAR.find(i=>i.id===id);
+  return x ? (x[lang]||x.uz) : id;
+}
+function getUslubName(id){
+  const u = USLUBLAR.find(i=>i.id===id);
+  return u ? u.n : id;
 }
 
-// ── REVEAL ──
-const obs=new IntersectionObserver(e=>e.forEach(x=>{if(x.isIntersecting)x.target.classList.add('on')}),{threshold:.06});
-document.querySelectorAll('.rv').forEach(el=>obs.observe(el));
-
-// ── STATE ──
-let curXona='mehmonxona', curUslub='minimalizm', curMode='xona';
-
-// ── BUILD XONA USLUB GRID ──
-function buildXonaUslubGrid(){
-  const grid=document.getElementById('xonaUslubGrid');
-  const lbl=document.getElementById('xonaUslubLbl');
-  lbl.textContent=XONA_NAMES[curXona]+' uslublari';
-  grid.innerHTML='';
-  USLUBLAR.forEach(u=>{
-    const d=document.createElement('div');
-    d.className='uslub-card'+(u===curUslub?' on':'');
-    d.dataset.xuslub=u;
-    d.innerHTML=`<span class="uc-name">${USLUB_NAMES[u]}</span><span class="uc-arr">→</span>`;
-    d.addEventListener('click',()=>{
-      curUslub=u;
-      grid.querySelectorAll('.uslub-card').forEach(c=>c.classList.remove('on'));
-      d.classList.add('on');
-      renderGallery();
-      document.getElementById('gallery').scrollIntoView({behavior:'smooth',block:'start'});
-    });
-    grid.appendChild(d);
-  });
-}
-
-// ── BUILD USLUB XONA GRID ──
-function buildUslubXonaGrid(){
-  const grid=document.getElementById('uslubXonaGrid');
-  const lbl=document.getElementById('uslubXonaLbl');
-  lbl.textContent=USLUB_NAMES[curUslub]+' xonalari';
-  grid.innerHTML='';
+// ═══════════════════════════════
+//  BUILD CATALOG LISTS
+// ═══════════════════════════════
+function buildXList(){
+  const c = document.getElementById('xList');
+  c.innerHTML='';
   XONALAR.forEach(x=>{
     const d=document.createElement('div');
-    d.className='xona-item'+(x===curXona?' on':'');
-    d.dataset.uxona=x;
-    d.innerHTML=`<span class="xi-name">${XONA_NAMES[x]}</span><span class="xi-arr">→</span>`;
+    d.className='xi'+(x.id===curXona?' on':'');
+    d.innerHTML=`<span class="xin">${x[lang]||x.uz}</span><span class="xia">→</span>`;
     d.addEventListener('click',()=>{
-      curXona=x;
-      grid.querySelectorAll('.xona-item').forEach(i=>i.classList.remove('on'));
+      curXona=x.id;
+      c.querySelectorAll('.xi').forEach(i=>i.classList.remove('on'));
+      d.classList.add('on');
+      buildXUGrid();
+      renderGallery();
+      document.getElementById('gallery').scrollIntoView({behavior:'smooth',block:'start'});
+    });
+    c.appendChild(d);
+  });
+}
+
+function buildUList(){
+  const c = document.getElementById('uList');
+  c.innerHTML='';
+  USLUBLAR.forEach(u=>{
+    const d=document.createElement('div');
+    d.className='uc'+(u.id===curUslub?' on':'');
+    d.innerHTML=`<span class="ucn">${u.n}</span><span class="uca">→</span>`;
+    d.addEventListener('click',()=>{
+      curUslub=u.id;
+      c.querySelectorAll('.uc').forEach(i=>i.classList.remove('on'));
+      d.classList.add('on');
+      buildUXGrid();
+      renderGallery();
+      document.getElementById('gallery').scrollIntoView({behavior:'smooth',block:'start'});
+    });
+    c.appendChild(d);
+  });
+}
+
+function buildXUGrid(){
+  const c = document.getElementById('xUGrid');
+  const lbl = document.getElementById('xSubLbl');
+  lbl.textContent = getXonaName(curXona) + (T[lang].xSubSuffix||' uslublari');
+  c.innerHTML='';
+  USLUBLAR.forEach(u=>{
+    const d=document.createElement('div');
+    d.className='uc'+(u.id===curUslub?' on':'');
+    d.innerHTML=`<span class="ucn">${u.n}</span><span class="uca">→</span>`;
+    d.addEventListener('click',()=>{
+      curUslub=u.id;
+      // Update both grids
+      document.querySelectorAll('#xUGrid .uc').forEach(i=>i.classList.remove('on'));
       d.classList.add('on');
       renderGallery();
       document.getElementById('gallery').scrollIntoView({behavior:'smooth',block:'start'});
     });
-    grid.appendChild(d);
+    c.appendChild(d);
   });
 }
 
-// ── XONA SELECT ──
-document.querySelectorAll('[data-xona]').forEach(item=>{
-  item.addEventListener('click',()=>{
-    document.querySelectorAll('[data-xona]').forEach(i=>i.classList.remove('on'));
-    item.classList.add('on');
-    curXona=item.dataset.xona;
-    buildXonaUslubGrid();
-    renderGallery();
-    document.getElementById('gallery').scrollIntoView({behavior:'smooth',block:'start'});
+function buildUXGrid(){
+  const c = document.getElementById('uXGrid');
+  const lbl = document.getElementById('uSubLbl');
+  lbl.textContent = getUslubName(curUslub) + (T[lang].uSubSuffix||' xonalari');
+  c.innerHTML='';
+  XONALAR.forEach(x=>{
+    const d=document.createElement('div');
+    d.className='xi'+(x.id===curXona?' on':'');
+    d.innerHTML=`<span class="xin">${x[lang]||x.uz}</span><span class="xia">→</span>`;
+    d.addEventListener('click',()=>{
+      curXona=x.id;
+      document.querySelectorAll('#uXGrid .xi').forEach(i=>i.classList.remove('on'));
+      d.classList.add('on');
+      renderGallery();
+      document.getElementById('gallery').scrollIntoView({behavior:'smooth',block:'start'});
+    });
+    c.appendChild(d);
   });
-});
+}
 
-// ── USLUB SELECT ──
-document.querySelectorAll('[data-uslub]').forEach(card=>{
-  card.addEventListener('click',()=>{
-    document.querySelectorAll('[data-uslub]').forEach(c=>c.classList.remove('on'));
-    card.classList.add('on');
-    curUslub=card.dataset.uslub;
-    buildUslubXonaGrid();
-    renderGallery();
-    document.getElementById('gallery').scrollIntoView({behavior:'smooth',block:'start'});
-  });
-});
-
-// ── CAT TABS ──
-document.querySelectorAll('.cat-tab').forEach(tab=>{
+// CAT TABS
+document.querySelectorAll('.ctab').forEach(tab=>{
   tab.addEventListener('click',()=>{
-    document.querySelectorAll('.cat-tab').forEach(t=>t.classList.remove('on'));
+    document.querySelectorAll('.ctab').forEach(t=>t.classList.remove('on'));
     tab.classList.add('on');
-    curMode=tab.dataset.panel;
-    document.getElementById('xonaPanel').classList.toggle('on',curMode==='xona');
-    document.getElementById('uslubPanel').classList.toggle('on',curMode==='uslub');
-    if(curMode==='uslub') buildUslubXonaGrid();
+    curMode=tab.dataset.p;
+    document.getElementById('xPanel').classList.toggle('on',curMode==='x');
+    document.getElementById('uPanel').classList.toggle('on',curMode==='u');
+    if(curMode==='u') buildUXGrid();
     renderGallery();
   });
 });
 
-// ── RENDER GALLERY ──
+// ═══════════════════════════════
+//  GALLERY
+// ═══════════════════════════════
 function renderGallery(){
-  const key=`${curXona}-${curUslub}`;
-  const imgs=IMAGES[key]||[];
-  const grid=document.getElementById('galGrid');
-  const empty=document.getElementById('galEmpty');
-  const title=document.getElementById('galTitle');
-  const count=document.getElementById('galCount');
-  title.innerHTML=`${XONA_NAMES[curXona]} · <span>${USLUB_NAMES[curUslub]}</span>`;
-  grid.querySelectorAll('.gal-item').forEach(i=>i.remove());
+  const key = curXona+'-'+curUslub;
+  const imgs = IMGS[key]||[];
+  const grid = document.getElementById('gGrid');
+  const empty = document.getElementById('gEmpty');
+  const title = document.getElementById('gTitle');
+  const cnt = document.getElementById('gCnt');
+
+  title.innerHTML = getXonaName(curXona)+' · <span>'+getUslubName(curUslub)+'</span>';
+
+  grid.querySelectorAll('.gi').forEach(i=>i.remove());
+
   if(imgs.length===0){
     empty.style.display='block';
-    count.textContent='0 ta rasm';
+    cnt.textContent='0 ta rasm';
     return;
   }
   empty.style.display='none';
-  count.textContent=imgs.length+' ta rasm';
+  cnt.textContent=imgs.length+' ta rasm';
   imgs.forEach((src,i)=>{
-    const div=document.createElement('div');
-    div.className='gal-item';
-    div.innerHTML=`<img src="${src}" alt="${XONA_NAMES[curXona]} ${USLUB_NAMES[curUslub]} ${i+1}" loading="lazy">
-      <div class="gal-ov"></div>
-      <div class="gal-info"><div class="gal-cat">${XONA_NAMES[curXona]} · ${USLUB_NAMES[curUslub]}</div><div class="gal-name">Loyiha #${i+1}</div></div>`;
-    grid.insertBefore(div,empty);
-    div.addEventListener('click',()=>openLb(i,imgs));
+    const d=document.createElement('div');
+    d.className='gi';
+    d.innerHTML=`<img src="${src}" alt="" loading="lazy">
+      <div class="gov"></div>
+      <div class="ginfo">
+        <div class="gcat">${getXonaName(curXona)} · ${getUslubName(curUslub)}</div>
+        <div class="gname">Loyiha #${i+1}</div>
+      </div>`;
+    grid.insertBefore(d,empty);
+    d.addEventListener('click',()=>openLb(i,imgs));
   });
 }
 
-// ── LIGHTBOX ──
-const lb=document.getElementById('lightbox');
+// ═══════════════════════════════
+//  LIGHTBOX
+// ═══════════════════════════════
+const lb=document.getElementById('lb');
 const lbImg=document.getElementById('lbImg');
 const lbName=document.getElementById('lbName');
 const lbCat=document.getElementById('lbCat');
 const lbCnt=document.getElementById('lbCnt');
 let lbImgs=[],lbIdx=0;
-function openLb(idx,imgs){lbImgs=imgs;lbIdx=idx;updateLb();lb.classList.add('on');document.body.style.overflow='hidden';}
-function updateLb(){lbImg.src=lbImgs[lbIdx];lbName.textContent=`${XONA_NAMES[curXona]} · ${USLUB_NAMES[curUslub]}`;lbCat.textContent='Loyiha #'+(lbIdx+1);lbCnt.textContent=(lbIdx+1)+' / '+lbImgs.length;}
-function closeLb(){lb.classList.remove('on');document.body.style.overflow='';}
-document.getElementById('lbClose').addEventListener('click',closeLb);
-document.getElementById('lbPrev').addEventListener('click',()=>{lbIdx=(lbIdx-1+lbImgs.length)%lbImgs.length;updateLb();});
-document.getElementById('lbNext').addEventListener('click',()=>{lbIdx=(lbIdx+1)%lbImgs.length;updateLb();});
+
+function openLb(idx,imgs){
+  lbImgs=imgs; lbIdx=idx; updateLb();
+  lb.classList.add('on');
+  document.body.style.overflow='hidden';
+}
+function updateLb(){
+  lbImg.src=lbImgs[lbIdx];
+  lbName.textContent=getXonaName(curXona)+' · '+getUslubName(curUslub);
+  lbCat.textContent='Loyiha #'+(lbIdx+1);
+  lbCnt.textContent=(lbIdx+1)+' / '+lbImgs.length;
+}
+function closeLb(){
+  lb.classList.remove('on');
+  document.body.style.overflow='';
+}
+document.getElementById('lbX').addEventListener('click',closeLb);
+document.getElementById('lbP').addEventListener('click',()=>{lbIdx=(lbIdx-1+lbImgs.length)%lbImgs.length;updateLb();});
+document.getElementById('lbN').addEventListener('click',()=>{lbIdx=(lbIdx+1)%lbImgs.length;updateLb();});
 lb.addEventListener('click',e=>{if(e.target===lb)closeLb();});
 document.addEventListener('keydown',e=>{
   if(!lb.classList.contains('on'))return;
@@ -755,10 +870,19 @@ document.addEventListener('keydown',e=>{
   if(e.key==='ArrowRight'){lbIdx=(lbIdx+1)%lbImgs.length;updateLb();}
 });
 
-// INIT
-buildXonaUslubGrid();
-buildUslubXonaGrid();
-renderGallery();
+// ═══════════════════════════════
+//  REVEAL
+// ═══════════════════════════════
+const obs=new IntersectionObserver(e=>e.forEach(x=>{
+  if(x.isIntersecting) x.target.classList.add('on');
+}),{threshold:.07});
+document.querySelectorAll('.rv').forEach(el=>obs.observe(el));
+
+// ═══════════════════════════════
+//  INIT
+// ═══════════════════════════════
+applyTheme(theme);
+applyLang('uz');
 </script>
 </body>
 </html>
