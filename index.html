@@ -1,0 +1,783 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>BIZUSTA — Individual Yechim</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth;overflow-x:hidden}
+
+body{font-family:'DM Sans',sans-serif;overflow-x:hidden;cursor:none}
+body.dark{background:#0d0d0d;color:#fff;--bg:#0d0d0d;--bg2:#141414;--bg3:#1e1e1e;--txt:#fff;--txt2:#aaa;--txt3:#555;--border:#222;--border2:#333;--accent:#94AFC9;--accent2:#2F496E;--card:#161616;--hover:#1e1e1e;--hbg:rgba(13,13,13,.94)}
+body.light{background:#fff;color:#0d0d0d;--bg:#fff;--bg2:#f5f5f3;--bg3:#ebebeb;--txt:#0d0d0d;--txt2:#555;--txt3:#999;--border:#e0e0dd;--border2:#ccc;--accent:#2F496E;--accent2:#94AFC9;--card:#f9f9f7;--hover:#f0f0ee;--hbg:rgba(255,255,255,.96)}
+
+.cur{width:8px;height:8px;background:var(--accent);border-radius:50%;position:fixed;pointer-events:none;z-index:9999}
+.cur-r{width:32px;height:32px;border:1px solid rgba(148,175,201,.3);border-radius:50%;position:fixed;pointer-events:none;z-index:9998}
+@media(hover:none){.cur,.cur-r{display:none}}
+
+/* HEADER */
+header{position:fixed;top:0;left:0;right:0;z-index:500;display:flex;align-items:center;justify-content:space-between;padding:16px 48px;background:var(--hbg);backdrop-filter:blur(24px);border-bottom:1px solid var(--border)}
+.logo{font-size:20px;font-weight:900;letter-spacing:.06em;color:var(--txt);text-decoration:none}
+.logo span{color:var(--accent)}
+nav{display:flex;align-items:center;gap:24px}
+nav a{font-size:10px;letter-spacing:.18em;text-transform:uppercase;color:var(--txt3);text-decoration:none;font-weight:600;transition:color .2s}
+nav a:hover{color:var(--txt)}
+.hright{display:flex;align-items:center;gap:8px}
+.lang-sw{display:flex;border:1px solid var(--border2);border-radius:4px;overflow:hidden}
+.lbtn{font-size:9px;padding:6px 10px;background:transparent;color:var(--txt3);border:none;cursor:none;font-family:'DM Sans',sans-serif;font-weight:700;text-transform:uppercase;transition:all .2s}
+.lbtn.on{background:var(--accent);color:#fff}
+.ibtn{width:32px;height:32px;border-radius:50%;border:1px solid var(--border2);background:transparent;cursor:none;display:flex;align-items:center;justify-content:center;font-size:14px;transition:border-color .2s}
+.ibtn:hover{border-color:var(--accent)}
+.ibtn.playing{border-color:var(--accent);background:rgba(148,175,201,.1)}
+.mwrap{display:none;gap:1.5px;align-items:flex-end;height:8px;margin-left:2px}
+.ibtn.playing .mwrap{display:flex}
+.mw{width:2px;background:var(--accent);border-radius:1px;animation:mw 1s ease-in-out infinite}
+.mw:nth-child(1){height:3px}.mw:nth-child(2){height:6px;animation-delay:.15s}.mw:nth-child(3){height:4px;animation-delay:.3s}.mw:nth-child(4){height:7px;animation-delay:.08s}
+@keyframes mw{0%,100%{transform:scaleY(1)}50%{transform:scaleY(.3)}}
+.music-inner{display:flex;align-items:center}
+.hcta{padding:8px 18px;background:var(--accent);color:#fff;font-size:10px;letter-spacing:.15em;text-transform:uppercase;font-weight:700;text-decoration:none;border-radius:100px;transition:background .2s;white-space:nowrap}
+.hcta:hover{background:var(--accent2)}
+
+/* HERO */
+#hero{min-height:100vh;display:grid;grid-template-columns:1fr 1fr;padding-top:68px}
+.hero-l{padding:60px 48px;display:flex;flex-direction:column;justify-content:center}
+.htag{display:inline-flex;align-items:center;gap:10px;background:var(--bg3);border:1px solid var(--border2);padding:7px 14px;border-radius:100px;font-size:11px;color:var(--txt2);margin-bottom:28px;width:fit-content}
+.htag::before{content:'';width:7px;height:7px;background:#4ade80;border-radius:50%;flex-shrink:0}
+.hwho{font-size:10px;letter-spacing:.3em;text-transform:uppercase;color:var(--txt3);margin-bottom:10px;font-weight:600}
+.hh1{font-size:clamp(56px,9vw,140px);font-weight:900;line-height:.88;letter-spacing:-.03em;color:var(--txt);text-transform:uppercase;margin-bottom:4px}
+.hh2{font-size:clamp(56px,9vw,140px);font-weight:900;line-height:.88;letter-spacing:-.03em;color:var(--accent);text-transform:uppercase;margin-bottom:24px}
+.hsubs{font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:var(--txt3);margin-bottom:12px;font-weight:600}
+.hshior{font-size:14px;line-height:1.7;color:var(--txt2);font-weight:300;margin-bottom:36px;max-width:460px;border-left:2px solid var(--accent);padding-left:16px}
+.hbtns{display:flex;gap:10px;flex-wrap:wrap}
+.btnp{padding:13px 28px;background:var(--accent);color:#fff;font-size:10px;letter-spacing:.15em;text-transform:uppercase;font-weight:700;text-decoration:none;border-radius:100px;transition:background .2s;border:none;cursor:none;font-family:'DM Sans',sans-serif}
+.btnp:hover{background:var(--accent2)}
+.btns{padding:13px 28px;border:1.5px solid var(--border2);color:var(--txt);font-size:10px;letter-spacing:.15em;text-transform:uppercase;font-weight:700;text-decoration:none;border-radius:100px;transition:all .2s;cursor:none;font-family:'DM Sans',sans-serif}
+.btns:hover{border-color:var(--accent);color:var(--accent)}
+.hero-r{position:relative;overflow:hidden;background:var(--bg2)}
+.hero-img{width:100%;height:100%;object-fit:cover;object-position:center top;display:block}
+.hero-ph{width:100%;height:100%;min-height:500px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:16px}
+.hero-ph-icon{font-size:48px;opacity:.1}
+.hero-ph-txt{font-size:10px;letter-spacing:.3em;text-transform:uppercase;color:var(--txt3)}
+.hero-grad{position:absolute;inset:0;pointer-events:none}
+body.dark .hero-grad{background:linear-gradient(to right,#0d0d0d 0%,transparent 28%),linear-gradient(to top,#0d0d0d 0%,transparent 16%)}
+body.light .hero-grad{background:linear-gradient(to right,#fff 0%,transparent 28%),linear-gradient(to top,#fff 0%,transparent 16%)}
+.hbadge{position:absolute;bottom:32px;right:24px;padding:14px 18px;border-left:2px solid var(--accent)}
+body.dark .hbadge{background:rgba(13,13,13,.9);border:1px solid #333;border-left:2px solid var(--accent)}
+body.light .hbadge{background:rgba(255,255,255,.95);border:1px solid #ccc;border-left:2px solid var(--accent)}
+.hb-name{font-size:16px;font-weight:700;color:var(--txt);margin-bottom:2px}
+.hb-role{font-size:9px;letter-spacing:.3em;text-transform:uppercase;color:var(--accent)}
+.hb-exp{font-size:10px;color:var(--txt3);margin-top:2px}
+.scroll-ind{position:absolute;bottom:24px;left:48px;display:flex;flex-direction:column;align-items:flex-start;gap:7px;z-index:2;opacity:.5}
+.sbar{width:1px;height:40px;background:linear-gradient(to bottom,var(--accent),transparent);animation:sa 2s ease-in-out infinite}
+@keyframes sa{0%{transform:scaleY(0);transform-origin:top}49%{transform:scaleY(1);transform-origin:top}50%{transform:scaleY(1);transform-origin:bottom}100%{transform:scaleY(0);transform-origin:bottom}}
+.stxt{font-size:8px;letter-spacing:.4em;text-transform:uppercase;color:var(--txt3)}
+
+/* TICKER */
+.ticker{overflow:hidden;padding:11px 0;border-top:1px solid var(--border);border-bottom:1px solid var(--border);background:var(--bg)}
+.ti{display:flex;animation:tk 28s linear infinite;white-space:nowrap}
+.titem{font-size:10px;letter-spacing:.35em;text-transform:uppercase;color:var(--txt3);padding:0 24px;display:inline-flex;align-items:center;gap:24px}
+.titem::after{content:'✦';color:var(--accent);font-size:7px}
+@keyframes tk{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+
+/* TREND USLUBLAR BANNER */
+#trend{padding:60px 48px;background:var(--bg);border-top:1px solid var(--border)}
+.trend-head{display:flex;align-items:flex-end;justify-content:space-between;margin-bottom:32px;flex-wrap:wrap;gap:16px}
+.trend-badge{display:inline-flex;align-items:center;gap:8px;background:linear-gradient(135deg,var(--accent),var(--accent2));color:#fff;padding:6px 16px;border-radius:100px;font-size:9px;font-weight:700;letter-spacing:.2em;text-transform:uppercase}
+.trend-badge::before{content:'🔥';font-size:11px}
+.trend-note{font-size:12px;color:var(--txt3);font-weight:300}
+.trend-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:10px}
+.trend-card{position:relative;height:200px;overflow:hidden;border-radius:6px;cursor:none;background:var(--card)}
+.trend-card img{width:100%;height:100%;object-fit:cover;transition:transform .6s cubic-bezier(.25,.46,.45,.94)}
+.trend-card:hover img{transform:scale(1.06)}
+.trend-ov{position:absolute;inset:0;background:linear-gradient(to top,rgba(0,0,0,.88),transparent 50%)}
+.trend-info{position:absolute;bottom:0;left:0;right:0;padding:14px 16px}
+.trend-lbl{font-size:8px;letter-spacing:.3em;text-transform:uppercase;color:var(--accent);margin-bottom:3px}
+.trend-name{font-size:14px;font-weight:700;color:#fff}
+.coming-card{height:200px;border-radius:6px;border:2px dashed var(--border2);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px;background:var(--bg2)}
+.coming-icon{font-size:24px;opacity:.3}
+.coming-txt{font-size:9px;letter-spacing:.25em;text-transform:uppercase;color:var(--txt3);text-align:center}
+
+/* ABOUT */
+#about{padding:80px 48px;display:grid;grid-template-columns:1fr 1fr;gap:64px;align-items:start;border-top:1px solid var(--border)}
+.sec-tag{font-size:10px;letter-spacing:.4em;text-transform:uppercase;color:var(--accent);margin-bottom:10px;display:block}
+.sec-h{font-size:clamp(28px,4vw,52px);font-weight:900;line-height:.92;letter-spacing:-.025em;color:var(--txt);margin-bottom:24px;text-transform:uppercase}
+.sec-h em{color:var(--accent);font-style:normal}
+.atxt{font-size:13px;line-height:1.85;color:var(--txt2);font-weight:300;margin-bottom:12px}
+.astats{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:32px;padding-top:28px;border-top:1px solid var(--border)}
+.stn{font-size:44px;font-weight:900;color:var(--accent);line-height:1;letter-spacing:-.02em}
+.stl{font-size:9px;letter-spacing:.2em;text-transform:uppercase;color:var(--txt3);margin-top:4px}
+.ota-card{background:var(--card);border:1px solid var(--border);padding:28px;position:relative;overflow:hidden}
+.ota-card::before{content:'';position:absolute;top:-30px;right:-30px;width:120px;height:120px;background:radial-gradient(circle,rgba(148,175,201,.07),transparent 70%)}
+.ota-lbl{font-size:9px;letter-spacing:.4em;text-transform:uppercase;color:var(--accent);margin-bottom:14px;display:block}
+.ota-name{font-size:36px;font-weight:900;color:var(--txt);line-height:.92;letter-spacing:-.02em;text-transform:uppercase;margin-bottom:4px}
+.ota-role{font-size:10px;letter-spacing:.15em;color:var(--txt3);text-transform:uppercase;margin-bottom:16px}
+.ota-text{font-size:13px;line-height:1.85;color:var(--txt2);font-weight:300;margin-bottom:20px}
+.ota-exp{display:flex;align-items:center;gap:12px;padding:16px;background:var(--bg);border:1px solid var(--border)}
+.ota-exp-n{font-size:36px;font-weight:900;color:var(--accent);line-height:1;letter-spacing:-.02em}
+.ota-exp-l{font-size:11px;font-weight:700;color:var(--txt);margin-bottom:2px}
+.ota-exp-s{font-size:10px;color:var(--txt3)}
+
+/* NARXLAR */
+#pricing{padding:80px 48px;border-top:1px solid var(--border);background:var(--bg2)}
+.pricing-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:40px}
+.price-card{background:var(--card);border:1px solid var(--border);padding:28px;border-radius:6px;position:relative;transition:transform .3s,border-color .3s}
+.price-card:hover{transform:translateY(-4px);border-color:var(--accent)}
+.price-card.featured{border-color:var(--accent);background:var(--bg)}
+.price-coming{position:absolute;top:16px;right:16px;font-size:8px;letter-spacing:.2em;text-transform:uppercase;background:var(--bg3);color:var(--txt3);padding:4px 10px;border-radius:100px}
+.price-coming.soon{background:rgba(148,175,201,.15);color:var(--accent)}
+.price-icon{font-size:32px;margin-bottom:16px}
+.price-name{font-size:18px;font-weight:900;color:var(--txt);letter-spacing:-.01em;margin-bottom:6px;text-transform:uppercase}
+.price-desc{font-size:12px;color:var(--txt3);line-height:1.7;margin-bottom:20px;font-weight:300}
+.price-features{list-style:none;display:flex;flex-direction:column;gap:8px;margin-bottom:24px}
+.price-features li{font-size:12px;color:var(--txt2);display:flex;align-items:center;gap:8px;font-weight:300}
+.price-features li::before{content:'✓';color:var(--accent);font-weight:700;font-size:11px;flex-shrink:0}
+.price-cta{width:100%;padding:12px;background:var(--accent);color:#fff;font-size:10px;letter-spacing:.15em;text-transform:uppercase;font-weight:700;border:none;cursor:none;border-radius:100px;font-family:'DM Sans',sans-serif;transition:background .2s}
+.price-cta:hover{background:var(--accent2)}
+.price-cta.outline{background:transparent;border:1.5px solid var(--border2);color:var(--txt)}
+.price-cta.outline:hover{border-color:var(--accent);color:var(--accent);background:transparent}
+
+/* CATALOG */
+#catalog{padding:80px 0;border-top:1px solid var(--border)}
+.cat-head{padding:0 48px;margin-bottom:32px}
+.cat-tabs{display:flex;border-bottom:1px solid var(--border);padding:0 48px}
+.ctab{font-size:11px;letter-spacing:.15em;text-transform:uppercase;color:var(--txt3);font-weight:700;padding:14px 22px;cursor:none;border:none;background:transparent;font-family:'DM Sans',sans-serif;border-bottom:2px solid transparent;margin-bottom:-1px;transition:color .2s,border-color .2s}
+.ctab:hover{color:var(--txt)}
+.ctab.on{color:var(--txt);border-bottom-color:var(--accent)}
+.xpanel,.upanel{display:none;padding:28px 48px 0}
+.xpanel.on,.upanel.on{display:block}
+.xlist{display:grid;grid-template-columns:repeat(auto-fill,minmax(190px,1fr));gap:8px}
+.xi{background:var(--card);border:1px solid var(--border);padding:14px 18px;cursor:none;transition:all .2s;display:flex;align-items:center;justify-content:space-between;border-radius:4px}
+.xi:hover:not(.on){background:var(--hover);border-color:var(--accent)}
+.xi.on{background:var(--accent);border-color:var(--accent)}
+.xi.on .xin,.xi.on .xia{color:#fff}
+.xin{font-size:13px;font-weight:600;color:var(--txt)}
+.xia{font-size:14px;color:var(--txt3)}
+.sub-nav{margin-top:20px;padding:16px 0;border-top:1px solid var(--border)}
+.sub-lbl{font-size:9px;letter-spacing:.38em;text-transform:uppercase;color:var(--accent);margin-bottom:12px;display:block}
+.ugrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(165px,1fr));gap:7px}
+.uc{background:var(--card);border:1px solid var(--border);padding:12px 16px;cursor:none;transition:all .2s;display:flex;align-items:center;justify-content:space-between;border-radius:4px}
+.uc:hover:not(.on){background:var(--hover);border-color:var(--accent)}
+.uc.on{background:var(--accent);border-color:var(--accent)}
+.uc.on .ucn,.uc.on .uca{color:#fff}
+.ucn{font-size:12px;font-weight:600;color:var(--txt)}
+.uca{font-size:13px;color:var(--txt3)}
+
+/* GALLERY */
+#gallery{padding:48px 48px 80px;border-top:1px solid var(--border);min-height:220px}
+.ghead{display:flex;align-items:center;justify-content:space-between;margin-bottom:28px;flex-wrap:wrap;gap:10px}
+.gtitle{font-size:clamp(20px,2.8vw,34px);font-weight:900;letter-spacing:-.02em;color:var(--txt);text-transform:uppercase}
+.gtitle span{color:var(--accent)}
+.gcnt{font-size:10px;letter-spacing:.22em;color:var(--txt3);text-transform:uppercase}
+.ggrid{columns:3;column-gap:8px}
+.gi{break-inside:avoid;margin-bottom:8px;position:relative;overflow:hidden;cursor:none;background:var(--bg2);border-radius:3px}
+.gi img{width:100%;display:block;transition:transform .6s cubic-bezier(.25,.46,.45,.94)}
+.gi:hover img{transform:scale(1.04)}
+.gov{position:absolute;inset:0;background:linear-gradient(to top,rgba(0,0,0,.85),transparent 52%);opacity:0;transition:opacity .3s}
+.gi:hover .gov{opacity:1}
+.ginfo{position:absolute;bottom:0;left:0;right:0;padding:14px 16px;transform:translateY(5px);transition:transform .3s}
+.gi:hover .ginfo{transform:translateY(0)}
+.gcat{font-size:8px;letter-spacing:.25em;text-transform:uppercase;color:var(--accent);margin-bottom:3px}
+.gname{font-size:14px;font-weight:700;color:#fff}
+.gempty{text-align:center;padding:56px 20px;color:var(--txt3)}
+.gempty-icon{font-size:32px;opacity:.15;margin-bottom:10px}
+.gempty-txt{font-size:10px;letter-spacing:.25em;text-transform:uppercase}
+
+/* BAJARILGAN ISHLAR */
+#portfolio{padding:80px 48px;border-top:1px solid var(--border)}
+.port-grid{columns:3;column-gap:8px;margin-top:32px}
+.port-item{break-inside:avoid;margin-bottom:8px;position:relative;overflow:hidden;cursor:none;border-radius:3px;background:var(--bg2)}
+.port-item img{width:100%;display:block;transition:transform .6s cubic-bezier(.25,.46,.45,.94)}
+.port-item:hover img{transform:scale(1.04)}
+.port-ov{position:absolute;inset:0;background:linear-gradient(to top,rgba(0,0,0,.8),transparent 50%);opacity:0;transition:opacity .3s}
+.port-item:hover .port-ov{opacity:1}
+.port-lbl{position:absolute;bottom:16px;left:16px;font-family:'DM Sans',sans-serif;font-size:13px;font-weight:700;color:#fff;opacity:0;transform:translateY(6px);transition:all .3s}
+.port-item:hover .port-lbl{opacity:1;transform:translateY(0)}
+
+/* CONTACT */
+#contact{padding:80px 48px;border-top:1px solid var(--border);display:grid;grid-template-columns:1fr 1fr;gap:64px;align-items:center}
+.cbig{font-size:clamp(36px,5.5vw,80px);font-weight:900;line-height:.88;letter-spacing:-.03em;color:var(--txt);text-transform:uppercase;margin-bottom:20px}
+.cbig em{color:var(--accent);font-style:normal}
+.cnote{font-size:13px;color:var(--txt2);line-height:1.8;font-weight:300}
+.clinks{display:flex;flex-direction:column;gap:8px}
+.clink{display:flex;align-items:center;gap:14px;padding:16px 20px;border:1px solid var(--border);text-decoration:none;color:var(--txt);background:var(--card);transition:all .3s;position:relative;overflow:hidden;border-radius:4px}
+.clink::before{content:'';position:absolute;inset:0;background:var(--accent);transform:translateX(-100%);transition:transform .35s cubic-bezier(.25,.46,.45,.94)}
+.clink:hover::before{transform:translateX(0)}
+.clink>*{position:relative;z-index:1}
+.clink:hover .cl-lbl,.clink:hover .cl-val,.clink:hover .cl-arr{color:#fff}
+.cl-icon{font-size:18px}
+.cl-info{flex:1}
+.cl-lbl{font-size:8px;letter-spacing:.28em;text-transform:uppercase;color:var(--accent);margin-bottom:2px;transition:color .2s}
+.cl-val{font-size:13px;font-weight:500;color:var(--txt);transition:color .2s}
+.cl-arr{color:var(--txt3);font-size:13px;opacity:0;transform:translateX(-4px);transition:all .2s}
+.clink:hover .cl-arr{opacity:1;transform:translateX(0)}
+
+/* FOOTER */
+footer{padding:28px 48px;border-top:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;background:var(--bg)}
+.flogo{font-size:18px;font-weight:900;letter-spacing:.06em;color:var(--txt)}
+.flogo span{color:var(--accent)}
+.fr{text-align:right}
+.fn{font-size:10px;letter-spacing:.1em;color:var(--txt3);margin-bottom:2px}
+.fc{font-size:9px;letter-spacing:.15em;text-transform:uppercase;color:var(--border2)}
+
+/* LIGHTBOX */
+.lb{position:fixed;inset:0;background:rgba(0,0,0,.97);z-index:2000;display:flex;align-items:center;justify-content:center;opacity:0;visibility:hidden;transition:all .3s}
+.lb.on{opacity:1;visibility:visible}
+.lb-img{max-width:92vw;max-height:90vh;object-fit:contain;transform:scale(.94);transition:transform .38s}
+.lb.on .lb-img{transform:scale(1)}
+.lb-x{position:absolute;top:18px;right:22px;font-size:22px;color:rgba(255,255,255,.4);cursor:none;background:none;border:none;font-family:'DM Sans',sans-serif;transition:color .2s}
+.lb-x:hover{color:#fff}
+.lb-p,.lb-n{position:absolute;top:50%;transform:translateY(-50%);font-size:32px;color:rgba(255,255,255,.3);cursor:none;background:none;border:none;padding:12px;font-family:'DM Sans',sans-serif;transition:color .2s}
+.lb-p{left:8px}.lb-n{right:8px}
+.lb-p:hover,.lb-n:hover{color:#fff}
+.lb-info{position:absolute;bottom:18px;left:50%;transform:translateX(-50%);text-align:center}
+.lb-name{font-size:14px;font-weight:700;color:#fff;margin-bottom:2px}
+.lb-cat{font-size:9px;letter-spacing:.25em;text-transform:uppercase;color:#94AFC9}
+.lb-cnt{font-size:9px;color:rgba(255,255,255,.3);margin-top:4px;letter-spacing:.15em}
+
+.rv{opacity:0;transform:translateY(20px);transition:opacity .8s,transform .8s}
+.rv.on{opacity:1;transform:translateY(0)}
+
+@media(max-width:900px){
+  header{padding:12px 20px}
+  nav{display:none}
+  #hero{grid-template-columns:1fr}
+  .hero-l{padding:72px 20px 44px}
+  .hero-r{min-height:55vw}
+  #trend,#about,#pricing,#catalog,#gallery,#portfolio,#contact{padding-left:20px;padding-right:20px}
+  #catalog{padding-left:0;padding-right:0}
+  .cat-head,.cat-tabs,.xpanel,.upanel{padding-left:20px;padding-right:20px}
+  .pricing-grid{grid-template-columns:1fr}
+  #about{grid-template-columns:1fr;gap:36px}
+  #contact{grid-template-columns:1fr;gap:36px}
+  .ggrid,.port-grid{columns:2}
+  footer{padding:20px;flex-direction:column;gap:10px;text-align:center}
+  .scroll-ind{left:20px}
+  .trend-grid{grid-template-columns:repeat(2,1fr)}
+}
+</style>
+</head>
+<body class="dark">
+
+<div class="cur" id="cur"></div>
+<div class="cur-r" id="curR"></div>
+<audio id="aTungi" loop src="tungi.mp3" preload="none"></audio>
+<audio id="aKunduz" loop src="kunduzgi.mp3" preload="none"></audio>
+
+<!-- LIGHTBOX -->
+<div class="lb" id="lb">
+  <button class="lb-x" id="lbX">✕</button>
+  <button class="lb-p" id="lbP">‹</button>
+  <img class="lb-img" id="lbImg" src="" alt="">
+  <button class="lb-n" id="lbN">›</button>
+  <div class="lb-info">
+    <div class="lb-name" id="lbName"></div>
+    <div class="lb-cat" id="lbCat"></div>
+    <div class="lb-cnt" id="lbCnt"></div>
+  </div>
+</div>
+
+<!-- HEADER -->
+<header>
+  <a href="#" class="logo">BIZ<span>USTA</span></a>
+  <nav>
+    <a href="#catalog" id="nXona">Xonalar</a>
+    <a href="#trend" id="nTrend">Trend</a>
+    <a href="#about" id="nHaq">Haqimizda</a>
+    <a href="#pricing" id="nNarx">Narxlar</a>
+    <a href="#contact" id="nBog">Bog'lanish</a>
+  </nav>
+  <div class="hright">
+    <div class="lang-sw">
+      <button class="lbtn on" data-l="uz">UZ</button>
+      <button class="lbtn" data-l="kril">ЎЗ</button>
+      <button class="lbtn" data-l="ru">RU</button>
+    </div>
+    <button class="ibtn" id="themeBtn">🌙</button>
+    <button class="ibtn" id="musicBtn">
+      <div class="music-inner">
+        <span>🎵</span>
+        <div class="mwrap"><div class="mw"></div><div class="mw"></div><div class="mw"></div><div class="mw"></div></div>
+      </div>
+    </button>
+    <a href="tel:+998770268111" class="hcta" id="hCta">📞 Bog'lanish</a>
+  </div>
+</header>
+
+<!-- HERO -->
+<section id="hero">
+  <div class="hero-l">
+    <div class="htag" id="hTag">Urgut · Samarqand</div>
+    <p class="hwho" id="hWho">Muhammadqodir Umarov</p>
+    <h1 class="hh1" id="hH1">Odelka &</h1>
+    <h1 class="hh2" id="hH2">Dizayn</h1>
+    <p class="hsubs" id="hSubs">7 yil tajriba · Moskvada malaka oshirgan</p>
+    <p class="hshior" id="hShior">Har bir loyihaga — individual yechim beruchi BIZUSTA jamoasi</p>
+    <div class="hbtns">
+      <a href="#catalog" class="btnp" id="hBtn1">Ishlarni ko'rish</a>
+      <a href="#contact" class="btns" id="hBtn2">Bog'lanish</a>
+    </div>
+  </div>
+  <div class="hero-r">
+    <img src="images/hero-ota.jpg" class="hero-img" alt="Saidov Umid — Bosh Usta" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+    <div class="hero-ph" style="display:none">
+      <div class="hero-ph-icon">🏠</div>
+      <div class="hero-ph-txt">Rasm yuklanmoqda...</div>
+    </div>
+    <div class="hero-grad"></div>
+    <div class="hbadge">
+      <div class="hb-name">Saidov Umid</div>
+      <div class="hb-role" id="hbRole">Bosh Usta · 25+ yil</div>
+      <div class="hb-exp" id="hbExp">Malyarka & Odelka ustasi</div>
+    </div>
+  </div>
+  <div class="scroll-ind">
+    <div class="sbar"></div>
+    <span class="stxt">Scroll</span>
+  </div>
+</section>
+
+<!-- TICKER -->
+<div class="ticker">
+  <div class="ti">
+    <span class="titem">Minimalizm</span><span class="titem">Kontemporari</span><span class="titem">High-Tech</span><span class="titem">Industrial</span><span class="titem">Japandi</span><span class="titem">Skandinaviya</span><span class="titem">Odelka & Dizayn</span><span class="titem">Bizusta.uz</span><span class="titem">Urgut · Samarqand</span>
+    <span class="titem">Minimalizm</span><span class="titem">Kontemporari</span><span class="titem">High-Tech</span><span class="titem">Industrial</span><span class="titem">Japandi</span><span class="titem">Skandinaviya</span><span class="titem">Odelka & Dizayn</span><span class="titem">Bizusta.uz</span><span class="titem">Urgut · Samarqand</span>
+  </div>
+</div>
+
+<!-- TREND USLUBLAR -->
+<section id="trend">
+  <div class="trend-head">
+    <div>
+      <span class="sec-tag" id="trTag">/ Trend uslublar</span>
+      <h2 class="sec-h" style="margin-bottom:0" id="trH">Hozirgi <em>Trendlar</em></h2>
+    </div>
+    <p class="trend-note" id="trNote">Qolgan uslublar hali jarayonda — tez kunda qo'shiladi</p>
+  </div>
+  <div class="trend-badge" style="margin-bottom:24px" id="trBadge">Trend uslublar — hozir mavjud</div>
+  <div class="trend-grid">
+
+    <!-- MAVJUD TREND USLUBLAR -->
+    <div class="trend-card">
+      <img src="images/mehmonxona-minimalizm-1.jpg" alt="Minimalizm" onerror="this.style.background='#1a1a2e'">
+      <div class="trend-ov"></div>
+      <div class="trend-info">
+        <div class="trend-lbl">Mehmonxona</div>
+        <div class="trend-name">Minimalizm</div>
+      </div>
+    </div>
+
+    <div class="trend-card">
+      <img src="images/mehmonxona-kontemporari-1.jpg" alt="Kontemporari" onerror="this.style.background='#1a1a2e'">
+      <div class="trend-ov"></div>
+      <div class="trend-info">
+        <div class="trend-lbl">Mehmonxona</div>
+        <div class="trend-name">Kontemporari</div>
+      </div>
+    </div>
+
+    <div class="trend-card">
+      <img src="images/kattalar-hightech-1.jpg" alt="High-Tech" onerror="this.style.background='#0d1824'">
+      <div class="trend-ov"></div>
+      <div class="trend-info">
+        <div class="trend-lbl">Yotoq xona</div>
+        <div class="trend-name">High-Tech</div>
+      </div>
+    </div>
+
+    <div class="trend-card">
+      <img src="images/mehmonxona-industrial-1.jpg" alt="Industrial" onerror="this.style.background='#1a1a1a'">
+      <div class="trend-ov"></div>
+      <div class="trend-info">
+        <div class="trend-lbl">Mehmonxona</div>
+        <div class="trend-name">Industrial</div>
+      </div>
+    </div>
+
+    <!-- KELAYOTGAN USLUBLAR -->
+    <div class="coming-card">
+      <div class="coming-icon">⏳</div>
+      <div class="coming-txt">Japandi<br>Tez kunda</div>
+    </div>
+    <div class="coming-card">
+      <div class="coming-icon">⏳</div>
+      <div class="coming-txt">Skandinaviya<br>Tez kunda</div>
+    </div>
+    <div class="coming-card">
+      <div class="coming-icon">⏳</div>
+      <div class="coming-txt">Art-Deco<br>Tez kunda</div>
+    </div>
+    <div class="coming-card">
+      <div class="coming-icon">⏳</div>
+      <div class="coming-txt">Neoklassika<br>Tez kunda</div>
+    </div>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section id="about">
+  <div class="rv">
+    <span class="sec-tag" id="aTag">/ Biz haqimizda</span>
+    <h2 class="sec-h" id="aH">Tajriba va <em>Yangilik</em></h2>
+    <p class="atxt" id="aT1">Men — Muhammadqodir Umarov. 7 yildan ziyod odelka sohasida ishlayapman. Bu sohaga otam tufayli keldim — u malyarka sohasida 25+ yil faoliyat yuritib keladi.</p>
+    <p class="atxt" id="aT2">Ota tajribasini zamonaviy dizayn va texnologiya bilan birlashtirib, 3 yildan buyon dizayn o'rganib kelayapman. Moskvada malaka oshirib, eng yangi uslublarni o'zlashtirdim.</p>
+    <div class="astats">
+      <div><div class="stn">7+</div><div class="stl" id="aS1">Yil odelka</div></div>
+      <div><div class="stn">25+</div><div class="stl" id="aS2">Ota tajribasi</div></div>
+      <div><div class="stn">4+</div><div class="stl" id="aS3">Trend uslub</div></div>
+    </div>
+  </div>
+  <div class="rv">
+    <div class="ota-card">
+      <span class="ota-lbl" id="oLbl">/ Bosh Usta · Asos</span>
+      <div class="ota-name">Saidov<br>Umid</div>
+      <div class="ota-role" id="oRole">Malyarka ustasi</div>
+      <p class="ota-text" id="oText">25 yildan ortiq yuzlab uylarni go'zallashtirib kelgan. Uning qo'li tekkan har bir devor — san'at asari. BIZUSTA ning poydevori mana shu tajriba.</p>
+      <div class="ota-exp">
+        <div class="ota-exp-n">25+</div>
+        <div>
+          <div class="ota-exp-l" id="oExpL">Yillik tajriba</div>
+          <div class="ota-exp-s" id="oExpS">Malyarka · Odelka · Bezak</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- NARXLAR -->
+<section id="pricing">
+  <div class="cat-head">
+    <span class="sec-tag" id="pTag">/ Xizmat narxlari</span>
+    <h2 class="sec-h rv" id="pH">Sizga mos <em>Tarif</em></h2>
+  </div>
+  <div class="pricing-grid rv">
+
+    <!-- STANDART -->
+    <div class="price-card">
+      <div class="price-coming">Hozir mavjud ✓</div>
+      <div class="price-icon">🏠</div>
+      <div class="price-name" id="p1Name">Standart</div>
+      <div class="price-desc" id="p1Desc">Asosiy odelka ishlari. Sifatli materiallar va professional ijro.</div>
+      <ul class="price-features" id="p1F">
+        <li>Devorlarni tekislash va bo'yaш</li>
+        <li>Shpaklyovka ishlari</li>
+        <li>Oddiy gips bezaklar</li>
+        <li>Pol va shift ishlari</li>
+        <li>Individual maslahat</li>
+      </ul>
+      <a href="tel:+998770268111" class="price-cta" id="p1Cta">Narx so'rash</a>
+    </div>
+
+    <!-- PREMIUM -->
+    <div class="price-card featured">
+      <div class="price-coming soon" id="p2Soon">Tez kunda 🔜</div>
+      <div class="price-icon">⭐</div>
+      <div class="price-name" id="p2Name">Premium</div>
+      <div class="price-desc" id="p2Desc">Murakkab dizayn elementlari va premium materiallar bilan to'liq odelka.</div>
+      <ul class="price-features" id="p2F">
+        <li>Standart xizmatlarning hammasi</li>
+        <li>3D dizayn loyiha</li>
+        <li>Molding va gips bezaklar</li>
+        <li>Dekorativ bo'yoq texnikalari</li>
+        <li>Mebel joylashuvini rejalashtirish</li>
+        <li>Kafolat xizmati</li>
+      </ul>
+      <button class="price-cta outline" id="p2Cta">Anons — tez kunda</button>
+    </div>
+
+    <!-- VIP -->
+    <div class="price-card">
+      <div class="price-coming soon" id="p3Soon">Tez kunda 🔜</div>
+      <div class="price-icon">👑</div>
+      <div class="price-name" id="p3Name">VIP</div>
+      <div class="price-desc" id="p3Desc">Turnkey yechim — dizayndan tortib tayyor xonagacha. Maksimal sifat.</div>
+      <ul class="price-features" id="p3F">
+        <li>Premium xizmatlarning hammasi</li>
+        <li>To'liq interior dizayn</li>
+        <li>Material xarid qilish xizmati</li>
+        <li>Mebel va aksessuarlar tanlash</li>
+        <li>Loyiha boshqaruvi</li>
+        <li>2 yillik kafolat</li>
+      </ul>
+      <button class="price-cta outline" id="p3Cta">Anons — tez kunda</button>
+    </div>
+  </div>
+</section>
+
+<!-- CATALOG -->
+<section id="catalog">
+  <div class="cat-head">
+    <span class="sec-tag" id="cTag">/ Katalog</span>
+    <h2 class="sec-h rv" id="cH">Xona yoki <em>Uslub</em></h2>
+  </div>
+  <div class="cat-tabs">
+    <button class="ctab on" data-p="x" id="tXona">Xona bo'yicha</button>
+    <button class="ctab" data-p="u" id="tUslub">Uslub bo'yicha</button>
+  </div>
+  <div class="xpanel on" id="xPanel">
+    <div class="xlist" id="xList"></div>
+    <div class="sub-nav">
+      <span class="sub-lbl" id="xSubLbl">Mehmonxona uslublari</span>
+      <div class="ugrid" id="xUGrid"></div>
+    </div>
+  </div>
+  <div class="upanel" id="uPanel">
+    <div class="ugrid" id="uList"></div>
+    <div class="sub-nav">
+      <span class="sub-lbl" id="uSubLbl">Minimalizm xonalari</span>
+      <div class="xlist" id="uXGrid"></div>
+    </div>
+  </div>
+</section>
+
+<!-- GALLERY -->
+<section id="gallery">
+  <div class="ghead">
+    <div class="gtitle" id="gTitle">Mehmonxona · <span>Minimalizm</span></div>
+    <div class="gcnt" id="gCnt">0 ta rasm</div>
+  </div>
+  <div class="ggrid" id="gGrid">
+    <div class="gempty" id="gEmpty">
+      <div class="gempty-icon">📸</div>
+      <div class="gempty-txt" id="gEmptyTxt">Rasmlar yuklanmoqda...</div>
+    </div>
+  </div>
+</section>
+
+<!-- PORTFOLIO -->
+<section id="portfolio">
+  <span class="sec-tag" id="portTag">/ Haqiqiy ishlar</span>
+  <h2 class="sec-h rv" id="portH">Bajarilgan <em>Ishlar</em></h2>
+  <div class="port-grid">
+    <div class="port-item"><img src="images/ish-1.jpg" alt="Bajarilgan ish 1"><div class="port-ov"></div><div class="port-lbl">Molding · Zal</div></div>
+    <div class="port-item"><img src="images/ish-2.jpg" alt="Bajarilgan ish 2"><div class="port-ov"></div><div class="port-lbl">Marmar panel</div></div>
+    <div class="port-item"><img src="images/ish-3.jpg" alt="Bajarilgan ish 3"><div class="port-ov"></div><div class="port-lbl">Dekorativ devor</div></div>
+    <div class="port-item"><img src="images/ish-4.jpg" alt="Bajarilgan ish 4"><div class="port-ov"></div><div class="port-lbl">Interior bezak</div></div>
+    <div class="port-item"><img src="images/ish-5.jpg" alt="Bajarilgan ish 5"><div class="port-ov"></div><div class="port-lbl">Odelka ishlari</div></div>
+    <div class="port-item"><img src="images/ish-6.jpg" alt="Bajarilgan ish 6"><div class="port-ov"></div><div class="port-lbl">Shift bezak</div></div>
+    <div class="port-item"><img src="images/ish-7.jpg" alt="Bajarilgan ish 7"><div class="port-ov"></div><div class="port-lbl">Koridor dizayn</div></div>
+    <div class="port-item"><img src="images/ish-8.jpg" alt="Bajarilgan ish 8"><div class="port-ov"></div><div class="port-lbl">Premium odelka</div></div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact">
+  <div class="rv">
+    <h2 class="cbig" id="ctBig">Loyihani<br><em>Boshlaylik</em></h2>
+    <p class="cnote" id="ctNote">Bepul maslahat uchun bugun bog'laning. Xonangiz o'lchamini ayting — individual yechim taklif qilamiz. Urgut va Samarqand bo'ylab ishlaymiz.</p>
+  </div>
+  <div class="clinks rv">
+    <a href="tel:+998770268111" class="clink">
+      <span class="cl-icon">📱</span>
+      <div class="cl-info"><div class="cl-lbl" id="ctTel">Telefon</div><div class="cl-val">+998 77 026 81 11</div></div>
+      <span class="cl-arr">→</span>
+    </a>
+    <a href="https://t.me/bizusta" class="clink">
+      <span class="cl-icon">✈️</span>
+      <div class="cl-info"><div class="cl-lbl">Telegram</div><div class="cl-val">@bizusta</div></div>
+      <span class="cl-arr">→</span>
+    </a>
+    <a href="https://instagram.com/bizusta" class="clink">
+      <span class="cl-icon">📸</span>
+      <div class="cl-info"><div class="cl-lbl">Instagram</div><div class="cl-val">@bizusta</div></div>
+      <span class="cl-arr">→</span>
+    </a>
+  </div>
+</section>
+
+<footer>
+  <div class="flogo">BIZ<span>USTA</span></div>
+  <div class="fr">
+    <div class="fn">Muhammadqodir Umarov & Saidov Umid</div>
+    <div class="fc" id="fCopy">© 2025 Bizusta.uz — Individual Yechim</div>
+  </div>
+</footer>
+
+<script>
+// DATA
+const XONALAR=[
+  {id:'mehmonxona',uz:"Mehmonxona",kril:"Меҳмонхона",ru:"Гостиная"},
+  {id:'kattalar',uz:"Kattalar xonasi",kril:"Катталар хонаси",ru:"Спальня"},
+  {id:'bolalar',uz:"Bolalar xonasi",kril:"Болалар хонаси",ru:"Детская"},
+  {id:'qizlar',uz:"Qizlar xonasi",kril:"Қизлар хонаси",ru:"Комн. девочек"},
+  {id:'koridor',uz:"Koridor",kril:"Коридор",ru:"Коридор"},
+  {id:'oshxona',uz:"Oshxona",kril:"Ошхона",ru:"Кухня"},
+  {id:'hojatxona',uz:"Hojatxona",kril:"Ҳожатхона",ru:"Туалет"},
+  {id:'hammom',uz:"Hammom",kril:"Ҳаммом",ru:"Ванная"},
+  {id:'sanuziel',uz:"Sanuziel",kril:"Санузел",ru:"Санузел"},
+];
+const USLUBLAR=[
+  {id:'minimalizm',n:"Minimalizm"},
+  {id:'kontemporari',n:"Kontemporari"},
+  {id:'hightech',n:"High-Tech"},
+  {id:'industrial',n:"Industrial"},
+  {id:'japandi',n:"Japandi"},
+  {id:'skandinaviya',n:"Skandinaviya"},
+  {id:'artdeco',n:"Art-Deco"},
+  {id:'neoklassika',n:"Neoklassika"},
+];
+
+// RASMLAR
+const IMGS={
+  'mehmonxona-minimalizm':['images/mehmonxona-minimalizm-1.jpg','images/mehmonxona-minimalizm-2.jpg'],
+  'mehmonxona-kontemporari':['images/mehmonxona-kontemporari-1.jpg','images/mehmonxona-kontemporari-2.jpg'],
+  'mehmonxona-industrial':['images/mehmonxona-industrial-1.jpg'],
+  'kattalar-kontemporari':['images/kattalar-kontemporari-1.jpg','images/kattalar-kontemporari-2.jpg'],
+  'kattalar-hightech':['images/kattalar-hightech-1.jpg','images/kattalar-hightech-2.jpg'],
+  'qizlar-kontemporari':['images/qizlar-kontemporari-1.jpg','images/qizlar-kontemporari-2.jpg'],
+  'qizlar-minimalizm':['images/qizlar-minimalizm-1.jpg'],
+  'koridor-kontemporari':['images/koridor-kontemporari-1.jpg','images/koridor-kontemporari-2.jpg'],
+  'oshxona-kontemporari':['images/oshxona-kontemporari-1.jpg','images/oshxona-kontemporari-2.jpg'],
+  'sanuziel-kontemporari':['images/sanuziel-kontemporari-1.jpg','images/sanuziel-kontemporari-2.jpg'],
+  'sanuziel-minimalizm':['images/sanuziel-minimalizm-1.jpg'],
+};
+
+// TRANSLATIONS
+const T={
+  uz:{nXona:"Xonalar",nTrend:"Trend",nHaq:"Haqimizda",nNarx:"Narxlar",nBog:"Bog'lanish",hTag:"Urgut · Samarqand",hWho:"Muhammadqodir Umarov",hH1:"Odelka &",hH2:"Dizayn",hSubs:"7 yil tajriba · Moskvada malaka oshirgan",hShior:"Har bir loyihaga — individual yechim beruchi BIZUSTA jamoasi",hBtn1:"Ishlarni ko'rish",hBtn2:"Bog'lanish",hbRole:"Bosh Usta · 25+ yil",hbExp:"Malyarka & Odelka ustasi",trTag:"/ Trend uslublar",trH:"Hozirgi <em>Trendlar</em>",trNote:"Qolgan uslublar hali jarayonda — tez kunda qo'shiladi",trBadge:"Trend uslublar — hozir mavjud",aTag:"/ Biz haqimizda",aH:"Tajriba va <em>Yangilik</em>",aT1:"Men — Muhammadqodir Umarov. 7 yildan ziyod odelka sohasida ishlayapman. Bu sohaga otam tufayli keldim — u malyarka sohasida 25+ yil faoliyat yuritib keladi.",aT2:"Ota tajribasini zamonaviy dizayn va texnologiya bilan birlashtirib, 3 yildan buyon dizayn o'rganib kelayapman. Moskvada malaka oshirib, eng yangi uslublarni o'zlashtirdim.",aS1:"Yil odelka",aS2:"Ota tajribasi",aS3:"Trend uslub",oLbl:"/ Bosh Usta · Asos",oRole:"Malyarka ustasi",oText:"25 yildan ortiq yuzlab uylarni go'zallashtirib kelgan. Uning qo'li tekkan har bir devor — san'at asari. BIZUSTA ning poydevori mana shu tajriba.",oExpL:"Yillik tajriba",oExpS:"Malyarka · Odelka · Bezak",pTag:"/ Xizmat narxlari",pH:"Sizga mos <em>Tarif</em>",p1Name:"Standart",p1Desc:"Asosiy odelka ishlari. Sifatli materiallar va professional ijro.",p2Name:"Premium",p2Desc:"Murakkab dizayn elementlari va premium materiallar bilan to'liq odelka.",p3Name:"VIP",p3Desc:"Turnkey yechim — dizayndan tortib tayyor xonagacha. Maksimal sifat.",p2Soon:"Tez kunda 🔜",p3Soon:"Tez kunda 🔜",p1Cta:"Narx so'rash",p2Cta:"Anons — tez kunda",p3Cta:"Anons — tez kunda",cTag:"/ Katalog",cH:"Xona yoki <em>Uslub</em>",tXona:"Xona bo'yicha",tUslub:"Uslub bo'yicha",portTag:"/ Haqiqiy ishlar",portH:"Bajarilgan <em>Ishlar</em>",ctBig:"Loyihani<br><em>Boshlaylik</em>",ctNote:"Bepul maslahat uchun bugun bog'laning. Xonangiz o'lchamini ayting — individual yechim taklif qilamiz. Urgut va Samarqand bo'ylab ishlaymiz.",ctTel:"Telefon",hCta:"📞 Bog'lanish",gEmptyTxt:"Rasmlar yuklanmoqda...",fCopy:"© 2025 Bizusta.uz — Individual Yechim",xSubSuffix:" uslublari",uSubSuffix:" xonalari"},
+  kril:{nXona:"Хоналар",nTrend:"Тренд",nHaq:"Ҳақимизда",nNarx:"Нархлар",nBog:"Боғланиш",hTag:"Урғут · Самарқанд",hWho:"Муҳаммадқодир Умаров",hH1:"Оделка &",hH2:"Дизайн",hSubs:"7 йил тажриба · Москвада малака ошириб келган",hShior:"Ҳар бир лойиҳага — индивидуал ечим берувчи BIZUSTA жамоаси",hBtn1:"Ишларни кўриш",hBtn2:"Боғланиш",hbRole:"Бош Уста · 25+ йил",hbExp:"Маляркa & Оделка устаси",trTag:"/ Тренд услублар",trH:"Ҳозирги <em>Трендлар</em>",trNote:"Қолган услублар ҳали жараёнда — тез кунда қўшилади",trBadge:"Тренд услублар — ҳозир мавжуд",aTag:"/ Биз ҳақимизда",aH:"Тажриба ва <em>Янгилик</em>",aT1:"Мен — Муҳаммадқодир Умаров. 7 йилдан зиёд оделка соҳасида ишлаяпман. Бу соҳага отам туфайли келдим — у маляркa соҳасида 25+ йил фаолият юритиб келади.",aT2:"Ота тажрибасини замонавий дизайн ва технология билан бирлаштириб, 3 йилдан буён дизайн ўрганиб келяпман. Москвада малака ошириб, энг янги услубларни ўзлаштирдим.",aS1:"Йил оделка",aS2:"Ота тажрибаси",aS3:"Тренд услуб",oLbl:"/ Бош Уста · Асос",oRole:"Маляркa устаси",oText:"25 йилдан ортиқ юзлаб уйларни гўзаллаштириб келган. Унинг қўли текган ҳар бир девор — санъат асари.",oExpL:"Йиллик тажриба",oExpS:"Маляркa · Оделка · Безак",pTag:"/ Хизмат нархлари",pH:"Сизга мос <em>Тариф</em>",p1Name:"Стандарт",p1Desc:"Асосий оделка ишлари. Сифатли материаллар ва профессионал ижро.",p2Name:"Премиум",p2Desc:"Мураккаб дизайн элементлари ва премиум материаллар билан тўлиқ оделка.",p3Name:"VIP",p3Desc:"Turnkey ечим — дизайндан тортиб тайёр хонагача. Максимал сифат.",p2Soon:"Тез кунда 🔜",p3Soon:"Тез кунда 🔜",p1Cta:"Нарх сўраш",p2Cta:"Анонс — тез кунда",p3Cta:"Анонс — тез кунда",cTag:"/ Каталог",cH:"Хона ёки <em>Услуб</em>",tXona:"Хона бўйича",tUslub:"Услуб бўйича",portTag:"/ Ҳақиқий ишлар",portH:"Бажарилган <em>Ишлар</em>",ctBig:"Лойиҳани<br><em>Бошлайлик</em>",ctNote:"Бепул маслаҳат учун бугун боғланинг. Хонангиз ўлчамини айтинг — индивидуал ечим таклиф қиламиз.",ctTel:"Телефон",hCta:"📞 Боғланиш",gEmptyTxt:"Расмлар юкланмоқда...",fCopy:"© 2025 Bizusta.uz — Индивидуал Ечим",xSubSuffix:" услублари",uSubSuffix:" хоналари"},
+  ru:{nXona:"Комнаты",nTrend:"Тренды",nHaq:"О нас",nNarx:"Цены",nBog:"Контакт",hTag:"Ургут · Самарканд",hWho:"Мухаммадкадир Умаров",hH1:"Отделка &",hH2:"Дизайн",hSubs:"7 лет опыта · Повышение квалификации в Москве",hShior:"BIZUSTA — команда, дающая индивидуальное решение каждому проекту",hBtn1:"Смотреть работы",hBtn2:"Связаться",hbRole:"Главный Мастер · 25+ лет",hbExp:"Мастер малярных работ",trTag:"/ Трендовые стили",trH:"Актуальные <em>Тренды</em>",trNote:"Остальные стили в процессе — скоро добавим",trBadge:"Трендовые стили — доступны сейчас",aTag:"/ О нас",aH:"Опыт и <em>Инновации</em>",aT1:"Я — Мухаммадкадир Умаров. Более 7 лет работаю в сфере отделки. В эту сферу меня привёл отец, который занимается малярными работами уже более 25 лет.",aT2:"Объединил богатый опыт отца с современным дизайном. Изучаю дизайн более 3 лет. Прошёл повышение квалификации в Москве, освоил новейшие стили.",aS1:"Лет отделки",aS2:"Опыт отца",aS3:"Тренд стиля",oLbl:"/ Главный Мастер",oRole:"Мастер малярных работ",oText:"Более 25 лет украшает дома. Каждая стена, к которой он прикоснулся — настоящее произведение искусства. Это фундамент BIZUSTA.",oExpL:"Лет опыта",oExpS:"Малярка · Отделка · Декор",pTag:"/ Стоимость услуг",pH:"Подходящий <em>Тариф</em>",p1Name:"Стандарт",p1Desc:"Базовые отделочные работы. Качественные материалы и профессиональное исполнение.",p2Name:"Премиум",p2Desc:"Полная отделка со сложными дизайн-элементами и премиальными материалами.",p3Name:"VIP",p3Desc:"Решение под ключ — от дизайна до готовой комнаты. Максимальное качество.",p2Soon:"Скоро 🔜",p3Soon:"Скоро 🔜",p1Cta:"Узнать цену",p2Cta:"Анонс — скоро",p3Cta:"Анонс — скоро",cTag:"/ Каталог",cH:"Комната или <em>Стиль</em>",tXona:"По комнате",tUslub:"По стилю",portTag:"/ Реальные работы",portH:"Выполненные <em>Работы</em>",ctBig:"Начнём<br><em>Проект</em>",ctNote:"Свяжитесь сегодня для бесплатной консультации. Работаем в Ургуте и по всему Самаркандскому региону.",ctTel:"Телефон",hCta:"📞 Связаться",gEmptyTxt:"Фото загружаются...",fCopy:"© 2025 Bizusta.uz — Индивидуальное Решение",xSubSuffix:" стили",uSubSuffix:" комнаты"},
+};
+
+// CURSOR
+const cur=document.getElementById('cur'),curR=document.getElementById('curR');
+let mx=0,my=0,rx=0,ry=0;
+document.addEventListener('mousemove',e=>{mx=e.clientX;my=e.clientY;cur.style.left=(mx-4)+'px';cur.style.top=(my-4)+'px'});
+(function tick(){rx+=(mx-rx-16)*.1;ry+=(my-ry-16)*.1;curR.style.left=rx+'px';curR.style.top=ry+'px';requestAnimationFrame(tick)})();
+
+// THEME
+let theme=localStorage.getItem('bz-theme')||'dark';
+const themeBtn=document.getElementById('themeBtn');
+function applyTheme(t){theme=t;document.body.className=t;themeBtn.textContent=t==='dark'?'🌙':'☀️';localStorage.setItem('bz-theme',t);if(musicPlaying)switchAudio();}
+themeBtn.addEventListener('click',()=>applyTheme(theme==='dark'?'light':'dark'));
+
+// MUSIC
+let musicPlaying=false;
+const aTungi=document.getElementById('aTungi'),aKunduz=document.getElementById('aKunduz');
+const musicBtn=document.getElementById('musicBtn');
+function curAudio(){return theme==='dark'?aTungi:aKunduz}
+function otherAudio(){return theme==='dark'?aKunduz:aTungi}
+function switchAudio(){otherAudio().pause();otherAudio().currentTime=0;if(musicPlaying)curAudio().play().catch(()=>{})}
+musicBtn.addEventListener('click',()=>{
+  if(!musicPlaying){curAudio().play().then(()=>{musicPlaying=true;musicBtn.classList.add('playing')}).catch(()=>{})}
+  else{curAudio().pause();musicPlaying=false;musicBtn.classList.remove('playing')}
+});
+
+// LANG
+let lang='uz';
+function applyLang(l){
+  lang=l;
+  const t=T[l];
+  Object.keys(t).forEach(k=>{
+    if(k==='xSubSuffix'||k==='uSubSuffix')return;
+    const el=document.getElementById(k);
+    if(el)el.innerHTML=t[k];
+  });
+  buildXList();buildUList();buildXUGrid();buildUXGrid();renderGallery();
+}
+document.querySelectorAll('.lbtn').forEach(btn=>{
+  btn.addEventListener('click',()=>{document.querySelectorAll('.lbtn').forEach(b=>b.classList.remove('on'));btn.classList.add('on');applyLang(btn.dataset.l)});
+});
+
+// STATE
+let curXona='mehmonxona',curUslub='minimalizm',curMode='x';
+function getXN(id){const x=XONALAR.find(i=>i.id===id);return x?(x[lang]||x.uz):id}
+function getUN(id){const u=USLUBLAR.find(i=>i.id===id);return u?u.n:id}
+
+// BUILD LISTS
+function buildXList(){
+  const c=document.getElementById('xList');c.innerHTML='';
+  XONALAR.forEach(x=>{
+    const d=document.createElement('div');d.className='xi'+(x.id===curXona?' on':'');
+    d.innerHTML=`<span class="xin">${x[lang]||x.uz}</span><span class="xia">→</span>`;
+    d.addEventListener('click',()=>{curXona=x.id;c.querySelectorAll('.xi').forEach(i=>i.classList.remove('on'));d.classList.add('on');buildXUGrid();renderGallery();document.getElementById('gallery').scrollIntoView({behavior:'smooth',block:'start'})});
+    c.appendChild(d);
+  });
+}
+function buildUList(){
+  const c=document.getElementById('uList');c.innerHTML='';
+  USLUBLAR.forEach(u=>{
+    const d=document.createElement('div');d.className='uc'+(u.id===curUslub?' on':'');
+    d.innerHTML=`<span class="ucn">${u.n}</span><span class="uca">→</span>`;
+    d.addEventListener('click',()=>{curUslub=u.id;c.querySelectorAll('.uc').forEach(i=>i.classList.remove('on'));d.classList.add('on');buildUXGrid();renderGallery();document.getElementById('gallery').scrollIntoView({behavior:'smooth',block:'start'})});
+    c.appendChild(d);
+  });
+}
+function buildXUGrid(){
+  const c=document.getElementById('xUGrid');c.innerHTML='';
+  document.getElementById('xSubLbl').textContent=getXN(curXona)+(T[lang].xSubSuffix||' uslublari');
+  USLUBLAR.forEach(u=>{
+    const d=document.createElement('div');d.className='uc'+(u.id===curUslub?' on':'');
+    d.innerHTML=`<span class="ucn">${u.n}</span><span class="uca">→</span>`;
+    d.addEventListener('click',()=>{curUslub=u.id;c.querySelectorAll('.uc').forEach(i=>i.classList.remove('on'));d.classList.add('on');renderGallery();document.getElementById('gallery').scrollIntoView({behavior:'smooth',block:'start'})});
+    c.appendChild(d);
+  });
+}
+function buildUXGrid(){
+  const c=document.getElementById('uXGrid');c.innerHTML='';
+  document.getElementById('uSubLbl').textContent=getUN(curUslub)+(T[lang].uSubSuffix||' xonalari');
+  XONALAR.forEach(x=>{
+    const d=document.createElement('div');d.className='xi'+(x.id===curXona?' on':'');
+    d.innerHTML=`<span class="xin">${x[lang]||x.uz}</span><span class="xia">→</span>`;
+    d.addEventListener('click',()=>{curXona=x.id;c.querySelectorAll('.xi').forEach(i=>i.classList.remove('on'));d.classList.add('on');renderGallery();document.getElementById('gallery').scrollIntoView({behavior:'smooth',block:'start'})});
+    c.appendChild(d);
+  });
+}
+
+document.querySelectorAll('.ctab').forEach(tab=>{
+  tab.addEventListener('click',()=>{
+    document.querySelectorAll('.ctab').forEach(t=>t.classList.remove('on'));tab.classList.add('on');
+    curMode=tab.dataset.p;
+    document.getElementById('xPanel').classList.toggle('on',curMode==='x');
+    document.getElementById('uPanel').classList.toggle('on',curMode==='u');
+    if(curMode==='u')buildUXGrid();renderGallery();
+  });
+});
+
+// GALLERY
+function renderGallery(){
+  const key=curXona+'-'+curUslub;
+  const imgs=IMGS[key]||[];
+  const grid=document.getElementById('gGrid');
+  const empty=document.getElementById('gEmpty');
+  document.getElementById('gTitle').innerHTML=getXN(curXona)+' · <span>'+getUN(curUslub)+'</span>';
+  grid.querySelectorAll('.gi').forEach(i=>i.remove());
+  if(imgs.length===0){empty.style.display='block';document.getElementById('gCnt').textContent='0 ta rasm';return}
+  empty.style.display='none';
+  document.getElementById('gCnt').textContent=imgs.length+' ta rasm';
+  imgs.forEach((src,i)=>{
+    const d=document.createElement('div');d.className='gi';
+    d.innerHTML=`<img src="${src}" alt="" loading="lazy" onerror="this.closest('.gi').style.display='none'"><div class="gov"></div><div class="ginfo"><div class="gcat">${getXN(curXona)} · ${getUN(curUslub)}</div><div class="gname">Loyiha #${i+1}</div></div>`;
+    grid.insertBefore(d,empty);
+    d.addEventListener('click',()=>openLb(i,imgs));
+  });
+}
+
+// LIGHTBOX
+const lb=document.getElementById('lb'),lbImg=document.getElementById('lbImg'),lbName=document.getElementById('lbName'),lbCat=document.getElementById('lbCat'),lbCnt=document.getElementById('lbCnt');
+let lbImgs=[],lbIdx=0;
+function openLb(idx,imgs){lbImgs=imgs;lbIdx=idx;updateLb();lb.classList.add('on');document.body.style.overflow='hidden'}
+function updateLb(){lbImg.src=lbImgs[lbIdx];lbName.textContent=getXN(curXona)+' · '+getUN(curUslub);lbCat.textContent='Loyiha #'+(lbIdx+1);lbCnt.textContent=(lbIdx+1)+' / '+lbImgs.length}
+function closeLb(){lb.classList.remove('on');document.body.style.overflow=''}
+document.getElementById('lbX').addEventListener('click',closeLb);
+document.getElementById('lbP').addEventListener('click',()=>{lbIdx=(lbIdx-1+lbImgs.length)%lbImgs.length;updateLb()});
+document.getElementById('lbN').addEventListener('click',()=>{lbIdx=(lbIdx+1)%lbImgs.length;updateLb()});
+lb.addEventListener('click',e=>{if(e.target===lb)closeLb()});
+document.addEventListener('keydown',e=>{
+  if(!lb.classList.contains('on'))return;
+  if(e.key==='Escape')closeLb();
+  if(e.key==='ArrowLeft'){lbIdx=(lbIdx-1+lbImgs.length)%lbImgs.length;updateLb()}
+  if(e.key==='ArrowRight'){lbIdx=(lbIdx+1)%lbImgs.length;updateLb()}
+});
+
+// REVEAL
+const obs=new IntersectionObserver(e=>e.forEach(x=>{if(x.isIntersecting)x.target.classList.add('on')}),{threshold:.07});
+document.querySelectorAll('.rv').forEach(el=>obs.observe(el));
+
+// INIT
+applyTheme(theme);
+applyLang('uz');
+</script>
+</body>
+</html>
